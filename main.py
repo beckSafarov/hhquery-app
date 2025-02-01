@@ -1,35 +1,21 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from methods import getAllJobs, getJobsPerPage, getVacancyTables
+from api_methods import get_all_vacancies, get_vacancies_by_page, getVacancyTables
 from basic_stats import display_main_stats
-from analysis import plot_intern_dist,plot_employers_dist
+from plots import plot_intern_dist,plot_employers_dist
 from configs import pro_roles_full
+from components.get_field_id import get_field_id
 
 st.title("HH Query -- Some Stats about job openings")
 
-it_field_labels = []
-for field in pro_roles_full:
-  it_field_labels.append(field['label'])
-
-selected_label = st.selectbox("Select field to see stats for", it_field_labels) 
-
-for field in pro_roles_full:
-  if field['label'] == selected_label:
-    selected_field_id = field['id']
-
-
-
+selected_field_id = get_field_id()
 
 with st.spinner('Loading jobs'):
-  jobs = getAllJobs(selected_field_id)
+  jobs = get_all_vacancies(selected_field_id)
 
 
-
-vacancyTables = getVacancyTables(jobs)
-main_df = vacancyTables['main']
-salary_df = vacancyTables['salary']
-employer_df = vacancyTables['employer']
+main_df, salary_df, employer_df = getVacancyTables(jobs).values()
 
 # Sample data
 display_main_stats(salary_df,main_df)

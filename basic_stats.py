@@ -14,7 +14,7 @@ def calculate(salary_df, main_df):
     }
   average_to = round(salary_df_sals["to"].mean())
   average_from = round(salary_df_sals["from"].mean())
-  print(salary_df_sals)
+
   return  {
     "average_from":average_to,
     "average_to":average_from,

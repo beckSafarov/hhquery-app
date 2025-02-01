@@ -1,5 +1,14 @@
 API = 'https://api.hh.ru/vacancies?area=97'
 pro_role_ids = [156, 160,10,12,150,25,165,34,36,73,155,96,164,104,157,107,112,113,148,114,116,121,124,125,126]
+
+general_page_configs = {
+  "layout":"wide",
+  "page_title":"HH Query",
+  "page_icon":"🧊",
+  "initial_sidebar_state":"expanded"
+}
+
+
 pro_roles_full = [
       {"name": "bi-analyst", "label": "BI-аналитик, аналитик данных", "id": 156},
       {"name": "devops", "label": "DevOps-инженер", "id": 160},
@@ -27,3 +36,4 @@ pro_roles_full = [
       {"name": "cto", "label": "Технический директор (CTO)", "id": 125},
       {"name": "technical-writer", "label": "Технический писатель", "id": 126}
 ]
+role_labels = [field['label'] for field in pro_roles_full]
