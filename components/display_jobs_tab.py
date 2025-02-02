@@ -39,17 +39,17 @@ def display_work_formats_section(df):
     work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies')
     st.plotly_chart(work_hours)
 
-def display_jobs_tab(main_df, salary_df):
+def display_jobs_tab(jobs_df, salary_df):
   
-  display_vacs_by_title_section(main_df)
+  display_vacs_by_title_section(jobs_df)
   
   st.header("Jobs")
 
-  display_work_reqs_section(main_df)
-  display_work_formats_section(main_df)
+  display_work_reqs_section(jobs_df)
+  display_work_formats_section(jobs_df)
   # st.subheader("Companies providing Internship")
-  # plot_pie(main_df['internship'], 'Proportions of Internships')
+  # plot_pie(jobs_df['internship'], 'Proportions of Internships')
   
   
   # st.subheader("Experience requirements among companies")
-  # plot_pie(main_df['experience_id'], 'Distribution of experience')
+  # plot_pie(jobs_df['experience_id'], 'Distribution of experience')

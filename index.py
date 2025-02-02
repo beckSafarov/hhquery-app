@@ -22,14 +22,14 @@ st.title("HH Query -- Some Stats about job openings")
 selected_field_id = get_field_id()
 jobs = get_all_vacancies(selected_field_id)
     
-main_df, salary_df, employer_df = get_vacancy_tables(jobs).values()
+jobs_df, salary_df, employer_df = get_vacancy_tables(jobs).values()
 
 #Main Stats
-display_main_stats(salary_df,main_df)
+display_main_stats(salary_df,jobs_df)
 
 tab1, tab2 = st.tabs(["Jobs", "Employers"])
 
 with tab1:
-    display_jobs_tab(main_df, salary_df)
+    display_jobs_tab(jobs_df, salary_df)
 with tab2:
-    display_employers_tab(main_df, employer_df)
+    display_employers_tab(jobs_df, employer_df)

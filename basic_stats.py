@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 
-def calculate(salary_df, main_df):
+def calculate(salary_df, jobs_df):
   salary_df_sals = salary_df[salary_df.notna()]
-  overall_vacancies = len(main_df)
+  overall_vacancies = len(jobs_df)
   
   if len(salary_df_sals) == 0: 
     return {
@@ -59,8 +59,8 @@ def plot(cards):
   #     """, unsafe_allow_html=True)
 
 
-def display_main_stats(salary_df, main_df):
-  calculated_values = calculate(salary_df, main_df)
+def display_main_stats(salary_df, jobs_df):
+  calculated_values = calculate(salary_df, jobs_df)
   plot([
      {"label":"Average Minimum Salary", "value":calculated_values['average_to']},
      {"label":"Average Maximum Salary", "value":calculated_values['average_from']},
