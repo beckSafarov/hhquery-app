@@ -5,22 +5,36 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
-
 def plot_pie(df, title):
-  fig, ax = plt.subplots(figsize=(8, 8))
-
-  work_schedule_dist = df.value_counts()
-  ax.pie(
-      work_schedule_dist,
-      autopct='%1.1f%%',
-      startangle=90,
-      colors=['#FF9999', '#66B3FF', '#99FF99'],
-      labels=work_schedule_dist.index
-  )
-
-  plt.title(title)
-  st.pyplot(fig)
-
+    # Create pie chart using plotly express
+    fig = px.pie(
+        values=df.value_counts().values,
+        names=df.value_counts().index,
+        title=title
+    )
+    
+    # Set consistent size and layout for all pie charts
+    fig.update_layout(
+        width=450,  # Set fixed width
+        height=450,  # Set fixed height
+        showlegend=True,
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=1.05
+        ),
+        title_x=0.5  # Center the title
+    )
+    
+    # Optional: Customize colors if needed
+    fig.update_traces(
+        marker=dict(colors=['#FF9999', '#66B3FF', '#99FF99']),
+        textposition='inside',
+        textinfo='percent+label'
+    )
+    
+    return fig
 
 
 def plot_vbar(df, group_by='name', id='id'):
