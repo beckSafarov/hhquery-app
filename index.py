@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from api_methods import get_all_vacancies
+from utils.api_methods import get_all_vacancies
 from configs import general_page_configs as gpc
 from utils.get_role_id import get_role_id
 from components.display_jobs_tab import display_jobs_tab
 from components.display_employers_tab import display_employers_tab
-from basic_stats import display_main_stats
+from components.basic_stats import display_main_stats
 from components.get_field_id import get_field_id
 from utils.get_vacancy_tables import get_vacancy_tables
 

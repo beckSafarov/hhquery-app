@@ -1,5 +1,5 @@
 import streamlit as st
-from plots import plot_vbar
+from utils.plots import plot_vbar
 
 
 

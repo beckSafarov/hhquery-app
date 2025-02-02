@@ -1,5 +1,5 @@
 import streamlit as st
-from plots import plot_pie,plot_hbar
+from utils.plots import plot_pie,plot_hbar
 
 
 def display_vacs_by_title_section(df):
