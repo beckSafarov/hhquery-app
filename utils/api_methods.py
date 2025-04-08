@@ -6,7 +6,9 @@ from urllib3.util.retry import Retry
 import streamlit as st
 import asyncio
 import aiohttp
-from concurrent.futures import ThreadPoolExecutor
+from configs import API
+
+
 
 def create_session():
     """Create a session with retry strategy"""
@@ -28,7 +30,7 @@ def create_session():
 
 
 def get_vacancies_by_page(session, page=1, role_id=10):
-    url = f'https://api.hh.ru/vacancies?area=97&professional_role={role_id}'
+    url = f'{API}?area=97&professional_role={role_id}'
     url = url if page <= 1 else url + f'&page={page}'
     try:
         # Add timeout parameter (10 seconds)

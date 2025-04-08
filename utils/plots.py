@@ -37,22 +37,21 @@ def plot_pie(df, title):
     return fig
 
 
-def plot_vbar(df, group_by='name', id='id'):
+def plot_vbar(df, title,labels, group_by, id):
   top_actors_count = 10
   actor_counts = df.groupby(group_by)[id].count().sort_values(ascending=False)
 
   top_actors = actor_counts.head(top_actors_count)
 
-  fig = px.bar(top_actors, x=top_actors.index, y=top_actors.values)
+  fig = px.bar(top_actors, x=top_actors.index, y=top_actors.values, title=title,labels=labels)
 
-  st.plotly_chart(fig, use_container_width=True)
+  return fig
 
 
-def plot_hbar(df, group_by, id,title,labels):
-  top_actors_count = 10
-  actor_counts = df.groupby(group_by)[id].count().sort_values(ascending=False)
+def plot_hbar(df, group_by, id,title,labels,top_count=8,aggregation_method='count'):
+  actor_counts = getattr(df.groupby(group_by)[id], aggregation_method)().sort_values(ascending=False)
 
-  top_actors = actor_counts.head(top_actors_count).sort_values()
+  top_actors = actor_counts.head(top_count).sort_values()
 
   fig = px.bar(
       x=top_actors,
@@ -62,4 +61,4 @@ def plot_hbar(df, group_by, id,title,labels):
       labels=labels
   )
 
-  st.plotly_chart(fig, use_container_width=True)
+  return fig

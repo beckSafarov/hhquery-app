@@ -1,6 +1,35 @@
 import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
+from configs import currencies
+from utils.currency_exchange import exchange_currencies
+import math 
+
+def get_avg_in_currency(df, def_currency):
+  total_from = 0
+  total_to = 0
+  list_len = len(df)
+  for _,row in df.iterrows():
+    currency = row["currency"].lower()
+    curr_from = row['from'] if math.isnan(row['from']) == False else 0
+    #print(f'row: {row["from"]} and curr_from: {curr_from}')
+    curr_to = row['to']
+    if def_currency == currency:
+      total_from += curr_from
+      total_to += curr_to
+    else:
+      total_from += exchange_currencies(curr_from, currency, def_currency)
+      total_to += exchange_currencies(curr_to, currency, st.session_state.selected_currency)
+  
+  avg_from = round(total_from / list_len,2)
+  avg_to = round(total_to / list_len,2)
+  return avg_from, avg_to
+  
+def format_large_number(number):
+  if len(str(number)) < 1:
+    return number
+  return f"{number:,}"
+  
 
 def calculate(salary_df, jobs_df):
   salary_df_sals = salary_df[salary_df.notna()]
@@ -12,8 +41,8 @@ def calculate(salary_df, jobs_df):
       "average_to":"Unknown",
       "overall_vacancies":overall_vacancies
     }
-  average_to = round(salary_df_sals["to"].mean())
-  average_from = round(salary_df_sals["from"].mean())
+  
+  average_from, average_to = get_avg_in_currency(salary_df, st.session_state.selected_currency)
 
   return  {
     "average_from":average_to,
@@ -24,39 +53,22 @@ def calculate(salary_df, jobs_df):
 def plot(cards):
   col1, col2, col3 = st.columns(3)
   cols = [col1, col2, col3]
+  default_currency = st.session_state.selected_currency
+  currency_symbol = next((curr['symbol'] for curr in currencies if curr['name']==default_currency))
+  
   # Style and display stats
   for i, col in enumerate(cols):
-     with col:
+    bare_value = cards[i]['value']
+    value = format_large_number(bare_value) if bare_value != 'Unknown' else bare_value
+    label = cards[i]['label']
+    preceding_text = currency_symbol if label.endswith("Salary") and value != 'Unknown' else ""
+    with col:
       st.markdown(f"""
       <div style="text-align: center;">
-          <h1 style="color: #4CAF50; font-size: 40px;">{cards[i]['value']}</h1>
-          <h3>{cards[i]['label']}</h3>
+          <h1 style="color: #4CAF50; font-size: 40px;">{preceding_text} {value}</h1>
+          <h3>{label}</h3>
       </div>
       """, unsafe_allow_html=True)
-
-  # with col1:
-  #     st.markdown(f"""
-  #     <div style="text-align: center;">
-  #         <h1 style="color: #4CAF50; font-size: 40px;">{cards[0]['value']}</h1>
-  #         <h3>Average Salary</h3>
-  #     </div>
-  #     """, unsafe_allow_html=True)
-
-  # with col2:
-  #     st.markdown(f"""
-  #     <div style="text-align: center;">
-  #         <h1 style="color: #2196F3; font-size: 40px;">{num_vacancies}</h1>
-  #         <h3>Vacancies</h3>
-  #     </div>
-  #     """, unsafe_allow_html=True)
-
-  # with col3:
-  #     st.markdown(f"""
-  #     <div style="text-align: center;">
-  #         <h1 style="color: #FF5722; font-size: 40px;">{top_skill}</h1>
-  #         <h3>Top Skill</h3>
-  #     </div>
-  #     """, unsafe_allow_html=True)
 
 
 def display_main_stats(salary_df, jobs_df):

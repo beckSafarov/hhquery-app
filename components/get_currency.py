@@ -1,0 +1,19 @@
+import streamlit as st
+from configs import currencies
+
+def get_currency():
+  st.session_state.selected_currency = 'usd'
+  
+  currency_labels = [field['label'] for field in currencies]
+  selected_label = st.selectbox("Select currency for salaries", currency_labels) 
+  selected_curr_name = next(field['name'] for field in currencies if field['label'] == selected_label)
+  if(selected_curr_name):
+    st.session_state.selected_currency = selected_curr_name
+  return selected_curr_name
+
+
+def handle_currency():
+  selected_currency = get_currency()
+  if selected_currency:
+      st.session_state.selected_currency = selected_currency
+

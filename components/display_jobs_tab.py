@@ -13,7 +13,8 @@ def display_vacs_by_title_section(df):
       hide_index=False)
   with col2:
     st.subheader("Positions with most vacancies")
-    plot_hbar(df,'name','name','Top Job Titles by Number of Vacancies',{'x':'Number of vacancies','y':'Job Title'})
+    pos_plot=plot_hbar(df,'name','name','Top Job Titles by Number of Vacancies',{'x':'Number of vacancies','y':'Job Title'})
+    st.plotly_chart(pos_plot)
 
 
 def display_work_reqs_section(df):
@@ -35,7 +36,6 @@ def display_work_formats_section(df):
     st.plotly_chart(work_formats)
   with col2:
     st.subheader("Work Hours for companies")
-    print(df.columns)
     work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies')
     st.plotly_chart(work_hours)
 
