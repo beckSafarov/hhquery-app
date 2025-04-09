@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from configs import pro_roles_full
+from data import pro_roles_full
 from components.get_currency import currency_checkboxes
 
 def build_sidebar():

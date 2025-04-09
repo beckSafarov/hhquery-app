@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
-from configs import currencies
+from data import currencies
 from utils.currency_exchange import exchange_currencies
 import math 
 
