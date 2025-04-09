@@ -62,10 +62,12 @@ def plot(cards):
     value = format_large_number(bare_value) if bare_value != 'Unknown' else bare_value
     label = cards[i]['label']
     preceding_text = currency_symbol if label.endswith("Salary") and value != 'Unknown' else ""
+    font_size = 40 if len(str(value)) < 10 else 30
+    
     with col:
       st.markdown(f"""
       <div style="text-align: center;">
-          <h1 style="color: #4CAF50; font-size: 40px;">{preceding_text} {value}</h1>
+          <h1 style="color: #4CAF50; font-size: {font_size}px;">{preceding_text} {value}</h1>
           <h3>{label}</h3>
       </div>
       """, unsafe_allow_html=True)

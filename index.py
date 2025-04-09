@@ -1,13 +1,11 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 from utils.api_methods import get_all_vacancies
 from configs import general_page_configs as gpc
 from components.display_jobs_tab import display_jobs_tab
 from components.display_employers_tab import display_employers_tab
 from components.basic_stats import display_main_stats
-from components.get_field_id import get_field_id
-from components.get_currency import get_currency,handle_currency
+from components.sidebar import build_sidebar
 from utils.get_vacancy_tables import get_vacancy_tables
 from utils.currency_exchange import convert_usd_to_uzs
 
@@ -22,11 +20,14 @@ st.title("HH Query -- Some Stats about job openings")
 
 
 
-selected_field_id = get_field_id()
+#selected_field_id = get_field_id()
 
-selected_currency = get_currency()
+selected_role_label,selected_role_id,selected_currency = build_sidebar()
 
-jobs = get_all_vacancies(selected_field_id)
+# Main content area that changes based on selection
+st.header(f"{selected_role_label} Statistics")
+
+jobs = get_all_vacancies(selected_role_id)
     
 jobs_df, salary_df, employer_df = get_vacancy_tables(jobs).values()
 

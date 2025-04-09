@@ -3,8 +3,8 @@ pro_role_ids = [156, 160,10,12,150,25,165,34,36,73,155,96,164,104,157,107,112,11
 
 general_page_configs = {
   "layout":"wide",
-  "page_title":"HH Query",
-  "page_icon":"🧊",
+  "page_title":"IT Job Trends",
+  "page_icon":"📊",
   "initial_sidebar_state":"expanded"
 }
 
