@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st #type: ignore
 from utils.api_methods import get_all_vacancies
 from configs import general_page_configs as gpc
 from components.display_jobs_tab import display_jobs_tab

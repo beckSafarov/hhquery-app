@@ -5,8 +5,6 @@ from components.get_currency import currency_checkboxes
 
 def build_sidebar():
   # Create the sidebar navigation
-  
-  st.sidebar.write("Mimino Roles")
   st.sidebar.title("IT Roles")
 
   # Define your IT roles

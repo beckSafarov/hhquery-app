@@ -1,11 +1,11 @@
-import pandas as pd
-import requests 
+import pandas as pd # type: ignore
+import requests  # type: ignore
 import time
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-import streamlit as st
+from requests.adapters import HTTPAdapter # type: ignore
+from urllib3.util.retry import Retry # type: ignore
+import streamlit as st # type: ignore
 import asyncio
-import aiohttp
+import aiohttp # type: ignore
 from configs import API
 
 
