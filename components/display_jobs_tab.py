@@ -32,7 +32,7 @@ def build_ag_grid_table(df):
   )
   gb_advanced.configure_column("count", filter="agNumberColumnFilter",type=["numericColumn"])
   gb_advanced.configure_grid_options(enable_quick_filter=True)
-  gb_advanced.configure_selection('multiple', use_checkbox=True, groupSelectsChildren=True)
+  gb_advanced.configure_selection('multiple', use_checkbox=False, groupSelectsChildren=True)
   gridOptions_advanced = gb_advanced.build()
   grid_response_advanced = AgGrid(
     df,
@@ -46,8 +46,8 @@ def build_ag_grid_table(df):
     #width='100%',
     reload_data=True
   )
-  selected_rows_advanced = grid_response_advanced['selected_rows']
-  st.write(pd.DataFrame(selected_rows_advanced))
+  #selected_rows_advanced = grid_response_advanced['selected_rows']
+  #st.write(pd.DataFrame(selected_rows_advanced))
 
 
 def display_vacs_by_title_section(df,salary_df):
