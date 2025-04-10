@@ -15,7 +15,7 @@ def get_sum_salaries_per_title(merged_df):
   sum_salaries = merged_df.groupby('name')[['from', 'to']].sum()
   return sum_salaries.replace(0.00,'-')
 
-def build_ag_grid_table(df):
+def build_advanced_grid_table(df):
   gb_advanced = GridOptionsBuilder.from_dataframe(df)
   gb_advanced.configure_column("name", filter="agTextColumnFilter")
   gb_advanced.configure_column(
@@ -52,17 +52,20 @@ def build_ag_grid_table(df):
 
 def display_vacs_by_title_section(df,salary_df):
   col1, col2 = st.columns(2)
-  merged_df = get_title_and_salaries_df(df,salary_df)
-  sum_salaries = get_sum_salaries_per_title(merged_df)
   with col1:
     st.subheader("Vacancies List")
     role_counts = df['name'].value_counts().reset_index()
     role_counts.index = role_counts.index + 1
     role_counts_df = pd.DataFrame(role_counts)
-    merged_role_counts = pd.merge(role_counts_df,sum_salaries,on='name',how='left')
-    build_ag_grid_table(merged_role_counts)
-    # st.dataframe(merged_role_counts,  use_container_width=True,
-    #   hide_index=False)
+    if len(salary_df) < 1:
+      st.dataframe(role_counts,  use_container_width=True,
+      hide_index=False)
+    else:
+      merged_df = get_title_and_salaries_df(df,salary_df)
+      sum_salaries = get_sum_salaries_per_title(merged_df)
+      merged_role_counts = pd.merge(role_counts_df,sum_salaries,on='name',how='left')
+      build_advanced_grid_table(merged_role_counts)
+    
   with col2:
     st.subheader("Positions with most vacancies")
     pos_plot=plot_hbar(df,'name','name','Top Job Titles by Number of Vacancies',{'x':'Number of vacancies','y':'Job Title'})
