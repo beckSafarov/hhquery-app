@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st #type:ignore
 from data import currencies
 
 def currency_checkboxes():

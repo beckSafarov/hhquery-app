@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd #type:ignore
 
 def get_avg_sal(min, max):
     if min is not None and max is not None:

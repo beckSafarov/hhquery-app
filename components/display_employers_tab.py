@@ -1,5 +1,4 @@
-import pandas as pd
-import streamlit as st
+import streamlit as st #type:ignore
 from utils.plots import plot_vbar,plot_hbar
 emp_labels = {'x':'Company Name', 'y':"Vacancies"}
 

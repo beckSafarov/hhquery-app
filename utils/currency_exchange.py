@@ -1,6 +1,6 @@
-import streamlit as st
-from datetime import datetime, timedelta
-import currencyapicom
+import streamlit as st #type:ignore
+from datetime import datetime
+import currencyapicom #type:ignore
 client = currencyapicom.Client('cur_live_8y6M52TI3twEEifAJOpvG5DR3uKfVSanqcfQ8203')
 CACHE_DURATION = 86400
 

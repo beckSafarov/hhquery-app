@@ -6,7 +6,6 @@ from components.display_employers_tab import display_employers_tab
 from components.basic_stats import display_main_stats
 from components.sidebar import build_sidebar
 from utils.get_vacancy_tables import get_vacancy_tables
-from utils.currency_exchange import convert_usd_to_uzs
 
 st.set_page_config(
     layout= gpc['layout'],  # Makes the container wider
