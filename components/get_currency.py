@@ -1,5 +1,5 @@
 import streamlit as st #type:ignore
-from data import currencies
+from data.index import currencies
 
 def currency_checkboxes():
   st.session_state.selected_currency = 'usd'

@@ -1,13 +1,12 @@
 import plotly.express as px #type:ignore
-import plotly.graph_objects as go #type:ignore
-import pandas as pd #type:ignore
 
-
-def plot_pie(df, title):
+def plot_pie(df, title, labels_map=None):
     # Create pie chart using plotly express
+    value_counts = df.value_counts()
+    names = value_counts.index.to_series().map(labels_map) if labels_map is not None else value_counts.index
     fig = px.pie(
-        values=df.value_counts().values,
-        names=df.value_counts().index,
+        values=value_counts.values,
+        names=names,
         title=title
     )
     
@@ -60,3 +59,8 @@ def plot_hbar(df, group_by, id,title,labels,top_count=8,aggregation_method='coun
   )
 
   return fig
+
+
+# const text = HOURS_2
+# const numb = Array(text).pop()
+# const formattedText = `${numb} hours`

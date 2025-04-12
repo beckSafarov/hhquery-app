@@ -1,5 +1,5 @@
 import streamlit as st #type:ignore
-from data import pro_roles_full
+from data.index import pro_roles_full
 from components.get_currency import currency_checkboxes
 
 def build_sidebar():

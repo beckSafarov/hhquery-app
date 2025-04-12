@@ -3,7 +3,6 @@ currencies = [
   {'name':"uzs", "label":"UZS","symbol":"лв"},
 ]
 
-
 pro_roles_full = [
       {"name": "bi-analyst", "label": "BI-аналитик, аналитик данных", "id": 156},
       {"name": "devops", "label": "DevOps-инженер", "id": 160},

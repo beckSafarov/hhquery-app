@@ -1,5 +1,5 @@
 import streamlit as st #type:ignore
-from data import currencies
+from data.index import currencies
 from utils.currency_exchange import exchange_currencies
 import math 
 

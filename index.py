@@ -1,11 +1,5 @@
 import streamlit as st #type: ignore
-from utils.api_methods import get_all_vacancies
 from configs import general_page_configs as gpc
-from components.display_jobs_tab import display_jobs_tab
-from components.display_employers_tab import display_employers_tab
-from components.basic_stats import display_main_stats
-from components.sidebar import build_sidebar
-from utils.get_vacancy_tables import get_vacancy_tables
 
 st.set_page_config(
     layout= gpc['layout'],  # Makes the container wider
@@ -13,6 +7,13 @@ st.set_page_config(
     page_icon=gpc['page_icon'],  # Optional: Sets the browser tab icon
     initial_sidebar_state=gpc['initial_sidebar_state']  # Optional: Controls initial sidebar state
 )
+
+from components.display_jobs_tab import display_jobs_tab
+from components.display_employers_tab import display_employers_tab
+from components.basic_stats import display_main_stats
+from components.sidebar import build_sidebar
+from utils.get_vacancy_tables import get_vacancy_tables
+from utils.api_methods import get_all_vacancies
 
 st.title("HH Query -- Some Stats about job openings")
 
@@ -23,7 +24,7 @@ st.title("HH Query -- Some Stats about job openings")
 selected_role_label,selected_role_id,selected_currency = build_sidebar()
 
 # Main content area that changes based on selection
-st.header(f"{selected_role_label} Statistics")
+st.header(f"Statistics for: {selected_role_label}")
 
 jobs = get_all_vacancies(selected_role_id)
     

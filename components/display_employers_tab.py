@@ -15,8 +15,3 @@ def display_employers_tab(employer_df,salary_df):
   emp_sals = plot_hbar(merged,'employer_name','average','Highest Paying Employers',emp_labels,top_count=10,aggregation_method='mean',)
   
   st.plotly_chart(emp_sals)
-
-
-"""
- job_id,employer_id,employer_name,salary_id,salary_avg
-"""

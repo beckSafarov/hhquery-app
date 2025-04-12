@@ -3,6 +3,7 @@ import pandas as pd #type:ignore
 from utils.plots import plot_pie,plot_hbar
 import numpy as np #type:ignore
 from st_aggrid import AgGrid, GridOptionsBuilder #type:ignore
+from data.plot_labels import work_hour_labels_map,internship_labels_map,experience_labels_map,work_formats_labels_map
 
 def get_title_and_salaries_df(df,salary_df):
   merged = pd.merge(df, salary_df, left_on='id',right_on='job_id',how='left')
@@ -76,22 +77,22 @@ def display_work_reqs_section(df):
   col1, col2 = st.columns(2)
   with col1:
     st.subheader("Companies providing Internship")
-    intern_plot = plot_pie(df['internship'], 'Proportions of Internships')
+    intern_plot = plot_pie(df['internship'], 'Proportions of Internships',internship_labels_map)
     st.plotly_chart(intern_plot)
   with col2:
     st.subheader("Experience requirements among companies")
-    exp_plot = plot_pie(df['experience_id'], 'Distribution of experience')
+    exp_plot = plot_pie(df['experience_id'], 'Distribution of experience', experience_labels_map)
     st.plotly_chart(exp_plot)
 
 def display_work_formats_section(df):
   col1, col2 = st.columns(2)
   with col1:
     st.subheader("Work Formats per companies")
-    work_formats = plot_pie(df['work_format'], 'Distribution of work format')
+    work_formats = plot_pie(df['work_format'], 'Distribution of work format',work_formats_labels_map)
     st.plotly_chart(work_formats)
   with col2:
     st.subheader("Work Hours for companies")
-    work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies')
+    work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies',work_hour_labels_map)
     st.plotly_chart(work_hours)
 
 def display_jobs_tab(jobs_df, salary_df):
