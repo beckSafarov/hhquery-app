@@ -33,3 +33,6 @@ work_hour_labels_map = {
     "FLEXIBLE": "Flexible",
     "OTHER": "Other"
 }
+
+emps_most_vacancy = {'employer_name':'Companies', 'y':"Number of Jobs"}
+emps_avg_salary = {'x':'Average Salary', 'y':"Company Name"}

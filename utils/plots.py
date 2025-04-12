@@ -39,7 +39,6 @@ def plot_vbar(df, title,labels, group_by, id):
   actor_counts = df.groupby(group_by)[id].count().sort_values(ascending=False)
 
   top_actors = actor_counts.head(top_actors_count)
-
   fig = px.bar(top_actors, x=top_actors.index, y=top_actors.values, title=title,labels=labels)
 
   return fig
@@ -59,8 +58,3 @@ def plot_hbar(df, group_by, id,title,labels,top_count=8,aggregation_method='coun
   )
 
   return fig
-
-
-# const text = HOURS_2
-# const numb = Array(text).pop()
-# const formattedText = `${numb} hours`
