@@ -53,6 +53,8 @@ def build_advanced_grid_table(df):
 
 def display_vacs_by_title_section(df,salary_df):
   col1, col2 = st.columns(2)
+  if len(df) < 1:
+    return st.write('No Stats found for vacancies by title')
   with col1:
     st.subheader("Vacancies List")
     role_counts = df['name'].value_counts().reset_index()
@@ -75,6 +77,8 @@ def display_vacs_by_title_section(df,salary_df):
 
 def display_work_reqs_section(df):
   col1, col2 = st.columns(2)
+  if len(df) < 1:
+    return st.write('No Stats found for job requirements')
   with col1:
     st.subheader("Companies providing Internship")
     intern_plot = plot_pie(df['internship'], 'Proportions of Internships',internship_labels_map)
@@ -86,6 +90,8 @@ def display_work_reqs_section(df):
 
 def display_work_formats_section(df):
   col1, col2 = st.columns(2)
+  if len(df) < 1:
+    return st.write('No Stats found for work formats')
   with col1:
     st.subheader("Work Formats per companies")
     work_formats = plot_pie(df['work_format'], 'Distribution of work format',work_formats_labels_map)

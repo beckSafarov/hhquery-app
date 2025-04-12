@@ -29,8 +29,8 @@ def create_session():
     return session
 
 
-def get_vacancies_by_page(session, page=1, role_id=10):
-    url = f'{API}?area=97&professional_role={role_id}'
+def get_vacancies_by_page(session, page=1, role_id=10,country_id=97):
+    url = f'{API}?area={country_id}&professional_role={role_id}'
     url = url if page <= 1 else url + f'&page={page}'
     try:
         # Add timeout parameter (10 seconds)
@@ -47,7 +47,7 @@ def get_vacancies_by_page(session, page=1, role_id=10):
         return None
 
 @st.cache_data(ttl=3600) 
-def get_all_vacancies(role_id):
+def get_all_vacancies(role_id,country_id):
     # Create a session for all requests
     session = create_session()
     
@@ -58,7 +58,7 @@ def get_all_vacancies(role_id):
     print(progress_text)
     
     # Get first page and initialize variables
-    json_data = get_vacancies_by_page(session, 1, role_id)
+    json_data = get_vacancies_by_page(session, 1, role_id,country_id)
     if not json_data:
         st.write("Failed to fetch initial data")
         return []

@@ -31,3 +31,11 @@ pro_roles_full = [
       {"name": "technical-writer", "label": "Технический писатель", "id": 126}
 ]
 role_labels = [field['label'] for field in pro_roles_full]
+
+countries = [
+  {"id":16,"code":"BE","name":"Belarus"},
+  {"id":113,"code":"RU","name":"Russia"},
+  {"id":40,"code":"KZ","name":"Kazakhstan"},
+  {"id":48,"code":"BE","name":"Kyrgyzstan"},
+  {"id":97,"code":"UZ","name":"Uzbekistan"},
+]

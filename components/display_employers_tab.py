@@ -5,7 +5,8 @@ from data.plot_labels import emps_avg_salary,emps_most_vacancy
 def display_employers_tab(employer_df,salary_df):
   st.header("Employers")
   st.subheader("Top Employers with vacancies")
-
+  if len(employer_df) < 1:
+    return st.write('No Stats found for employers')
   emp_vacs = plot_vbar(employer_df, 'Top Employers with vacancies', emps_most_vacancy,group_by='employer_name',id='id')
   st.plotly_chart(emp_vacs)
   

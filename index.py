@@ -14,19 +14,20 @@ from components.basic_stats import display_main_stats
 from components.sidebar import build_sidebar
 from utils.get_vacancy_tables import get_vacancy_tables
 from utils.api_methods import get_all_vacancies
-
+from data.index import countries
 st.title("HH Query -- Some Stats about job openings")
 
 
 
 #selected_field_id = get_field_id()
 
-selected_role_label,selected_role_id,selected_currency = build_sidebar()
+selected_country_id,selected_role_label,selected_role_id,selected_currency = build_sidebar()
 
 # Main content area that changes based on selection
-st.header(f"Statistics for: {selected_role_label}")
+selected_country_label = next(country['name'] for country in countries if country['id'] == selected_country_id)
+st.header(f"{selected_role_label} jobs in {selected_country_label}")
 
-jobs = get_all_vacancies(selected_role_id)
+jobs = get_all_vacancies(selected_role_id,selected_country_id)
     
 jobs_df, salary_df, employer_df = get_vacancy_tables(jobs).values()
 

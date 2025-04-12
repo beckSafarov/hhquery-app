@@ -10,7 +10,6 @@ def get_avg_in_currency(df, def_currency):
   for _,row in df.iterrows():
     currency = row["currency"].lower()
     curr_from = row['from'] if math.isnan(row['from']) == False else 0
-    #print(f'row: {row["from"]} and curr_from: {curr_from}')
     curr_to = row['to']
     if def_currency == currency:
       total_from += curr_from
