@@ -16,6 +16,9 @@ def clean_salary_df(df):
 
     # Drop rows where both 'to' and 'from' are NaN
     df_cleaned = df.drop(df[(df['to'].isna()) & (df['from'].isna())].index)
+    
+    # Rename RUB to RUR in the currency for an international convention
+    df_cleaned['currency'].replace({'RUR': 'RUB'},inplace=True)
     return df_cleaned
             
 

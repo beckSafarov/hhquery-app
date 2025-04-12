@@ -6,33 +6,34 @@ CACHE_DURATION = 86400
 
 @st.cache_data(ttl=CACHE_DURATION)
 def fetch_exchange_rate():
-    """Fetch the latest UZS to USD exchange rate"""
+    """Fetch the latest passed currency to USD exchange rate"""
     try:
         exchanges = client.latest()
-        uzs_rate = exchanges['data']['UZS']['value']
-        return uzs_rate, datetime.now()
+        return exchanges['data'], datetime.now()
     except Exception as e:
         print(f"Error fetching exchange rate: {e}")
         return None,None
 
 # Get the cached exchange rate
-rate, last_updated = fetch_exchange_rate()
-    
-def convert_usd_to_uzs(amount_usd, should_round=True):
-    """Convert USD amount to UZS using cached exchange rate"""
-    total = amount_usd * rate
-    rounded_total = round(total,2)
-    return rounded_total if should_round == True else total
-  
+exchanges, last_updated = fetch_exchange_rate()
 
-def convert_uzs_to_usd(amount_uzs, should_round=True):
-    """Convert UZS amount to USD using cached exchange rate"""
-    total = amount_uzs / rate
-    rounded_total = round(total,2)
-    return rounded_total if should_round == True else total
+def convert_around_usd(amount, currency, direction='to'):
+   """convert to usd from currency or to currency from usd
+
+    Args:
+        amount (int): amount of money to convert
+        currency (string): currency to convert to USD or from USD
+        direction (str, optional): values: 'to' and 'from. Defaults to 'to'.
+
+    Returns:
+        int: converted value
+    """  
+   value_to_usd = exchanges[currency.upper()]['value']
+   total = amount / value_to_usd if direction == 'to' else amount * value_to_usd
+   return round(total,2)
+
 
 def exchange_currencies(amount, from_curr, to_curr):
-  if from_curr == 'usd' and to_curr == 'uzs':
-    return convert_usd_to_uzs(amount)
-  else:
-    return convert_uzs_to_usd(amount)
+  from_curr_usd_value = convert_around_usd(amount, from_curr, 'to')
+  to_curr_usd_equivalent = convert_around_usd(from_curr_usd_value, to_curr, 'from')
+  return round(to_curr_usd_equivalent, 2)

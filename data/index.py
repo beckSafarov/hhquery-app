@@ -1,6 +1,10 @@
 currencies = [
-  {'name':"usd", "label":"USD","symbol":"$"},
-  {'name':"uzs", "label":"UZS","symbol":"лв"},
+  {'name':"usd","symbol":"$"},
+  {'name':"uzs","symbol":"лв"},
+  {'name':"kzt","symbol":"₸"},
+  {'name':"rub","symbol":"₽"},
+  {'name':"kgs","symbol":"KGS"},
+  {'name':"byn","symbol":"Rbl"},
 ]
 
 pro_roles_full = [
@@ -33,9 +37,9 @@ pro_roles_full = [
 role_labels = [field['label'] for field in pro_roles_full]
 
 countries = [
-  {"id":16,"code":"BE","name":"Belarus"},
-  {"id":113,"code":"RU","name":"Russia"},
-  {"id":40,"code":"KZ","name":"Kazakhstan"},
-  {"id":48,"code":"BE","name":"Kyrgyzstan"},
-  {"id":97,"code":"UZ","name":"Uzbekistan"},
+  {"id":16,"code":"BE","name":"Belarus","currency":"byn"},
+  {"id":113,"code":"RU","name":"Russia","currency":"rub"},
+  {"id":40,"code":"KZ","name":"Kazakhstan","currency":"kzt"},
+  {"id":48,"code":"BE","name":"Kyrgyzstan","currency":"kgs"},
+  {"id":97,"code":"UZ","name":"Uzbekistan","currency":"uzs"},
 ]
