@@ -1,8 +1,8 @@
 import streamlit as st #type:ignore
 from datetime import datetime
 import currencyapicom #type:ignore
-client = currencyapicom.Client('cur_live_8y6M52TI3twEEifAJOpvG5DR3uKfVSanqcfQ8203')
-CACHE_DURATION = 86400
+from configs import CACHE_DURATION,CURRENCY_API_CLIENT_ID
+client = currencyapicom.Client(CURRENCY_API_CLIENT_ID)
 
 @st.cache_data(ttl=CACHE_DURATION)
 def fetch_exchange_rate():

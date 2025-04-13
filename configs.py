@@ -1,5 +1,10 @@
+from dotenv import load_dotenv #type:ignore
+import os
+load_dotenv()
+
 API = 'https://api.hh.ru/vacancies'
-pro_role_ids = [156, 160,10,12,150,25,165,34,36,73,155,96,164,104,157,107,112,113,148,114,116,121,124,125,126]
+CACHE_DURATION = 86400
+CURRENCY_API_CLIENT_ID = os.getenv("CURRENCY_API_CLIENT_ID")
 
 general_page_configs = {
   "layout":"wide",

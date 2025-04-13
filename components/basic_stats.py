@@ -70,7 +70,9 @@ def plot(cards):
       """, unsafe_allow_html=True)
 
 
-def display_main_stats(salary_df, jobs_df):
+def display_main_stats():
+  salary_df = st.session_state.salary_df
+  jobs_df = st.session_state.jobs_df
   calculated_values = calculate(salary_df, jobs_df)
   plot([
      {"label":"Average Minimum Salary", "value":calculated_values['average_to']},

@@ -1,4 +1,5 @@
 import pandas as pd #type:ignore
+import streamlit as st #type:ignore
 
 def get_avg_sal(min, max):
     if min is not None and max is not None:
@@ -7,7 +8,8 @@ def get_avg_sal(min, max):
         return min if min is not None else max
     else: 
         return 0
-    
+
+@st.cache_data(ttl=3600)    
 def clean_salary_df(df):
     if len(df) < 1:
         return df
@@ -22,13 +24,14 @@ def clean_salary_df(df):
     return df_cleaned
             
 
+
 def get_vacancy_tables(jobs):
-    # Step 1: Create the main table
+    # Step 1: Creating the main tables
     jobs_df = []
     salary_df = []
     employer_df = []
 
-    # Step 2: Iterate through each row
+    # Step 2: Iterating through each row
     for row in jobs:
         # Employer table
         employer = row.get('employer', {})
@@ -69,14 +72,16 @@ def get_vacancy_tables(jobs):
             'id': employer_id,
             'employer_name': employer.get('name')
         })
+    
         
 
-    # Step 3: Convert to DataFrames
+    # Step 3: Converting to DataFrames
     jobs_df = pd.DataFrame(jobs_df)
-    salary_df = pd.DataFrame(salary_df)
+    salary_df = clean_salary_df(pd.DataFrame(salary_df))
     employer_df = pd.DataFrame(employer_df)
+    
+    st.session_state.jobs_df = jobs_df
+    st.session_state.salary_df = salary_df
+    st.session_state.employer_df = employer_df
 
-    return {
-        "main":jobs_df, 
-        "salary":clean_salary_df(salary_df), 
-        "employer":employer_df}
+    return jobs_df,salary_df,employer_df

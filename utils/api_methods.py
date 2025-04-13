@@ -1,4 +1,3 @@
-import pandas as pd # type: ignore
 import requests  # type: ignore
 import time
 from requests.adapters import HTTPAdapter # type: ignore
@@ -47,9 +46,12 @@ def get_vacancies_by_page(session, page=1, role_id=10,country_id=97):
         return None
 
 @st.cache_data(ttl=3600) 
-def get_all_vacancies(role_id,country_id):
+def get_all_vacancies(country,role):
     # Create a session for all requests
     session = create_session()
+    if country and role:
+        role_id = role['id']
+        country_id = country['id']
     
     # Create a progress bar
     progress_text = "Fetching jobs..."

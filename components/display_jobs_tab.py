@@ -35,7 +35,7 @@ def build_advanced_grid_table(df):
   gb_advanced.configure_grid_options(enable_quick_filter=True)
   gb_advanced.configure_selection('multiple', use_checkbox=False, groupSelectsChildren=True)
   gridOptions_advanced = gb_advanced.build()
-  grid_response_advanced = AgGrid(
+  AgGrid(
     df,
     gridOptions=gridOptions_advanced,
     data_return_mode='AS_INPUT',
@@ -47,8 +47,6 @@ def build_advanced_grid_table(df):
     #width='100%',
     reload_data=True
   )
-  #selected_rows_advanced = grid_response_advanced['selected_rows']
-  #st.write(pd.DataFrame(selected_rows_advanced))
 
 
 def display_vacs_by_title_section(df,salary_df):
@@ -101,7 +99,9 @@ def display_work_formats_section(df):
     work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies',work_hour_labels_map)
     st.plotly_chart(work_hours)
 
-def display_jobs_tab(jobs_df, salary_df):
+def display_jobs_tab():
+  jobs_df = st.session_state.jobs_df
+  salary_df = st.session_state.salary_df
   display_vacs_by_title_section(jobs_df,salary_df)
   st.header("Jobs")
   display_work_reqs_section(jobs_df)
