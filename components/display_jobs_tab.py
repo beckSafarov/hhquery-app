@@ -3,7 +3,8 @@ import pandas as pd #type:ignore
 from utils.plots import plot_pie,plot_hbar
 import numpy as np #type:ignore
 from st_aggrid import AgGrid, GridOptionsBuilder #type:ignore
-from data.plot_labels import work_hour_labels_map,internship_labels_map,experience_labels_map,work_formats_labels_map
+from utils.get_text import get_translated_text as t
+
 
 def get_title_and_salaries_df(df,salary_df):
   merged = pd.merge(df, salary_df, left_on='id',right_on='job_id',how='left')
@@ -54,7 +55,6 @@ def display_vacs_by_title_section(df,salary_df):
   if len(df) < 1:
     return st.write('No Stats found for vacancies by title')
   with col1:
-    st.subheader("Vacancies List")
     role_counts = df['name'].value_counts().reset_index()
     role_counts.index = role_counts.index + 1
     role_counts_df = pd.DataFrame(role_counts)
@@ -68,8 +68,9 @@ def display_vacs_by_title_section(df,salary_df):
       build_advanced_grid_table(merged_role_counts)
     
   with col2:
-    st.subheader("Positions with most vacancies")
-    pos_plot=plot_hbar(df,'name','name','Top Job Titles by Number of Vacancies',{'x':'Number of vacancies','y':'Job Title'})
+    caption = t('chart_captions.top_titles_by_vacancies')
+    top_titles_by_vacs_labels = t('chart_labels.top_titles')
+    pos_plot=plot_hbar(df,'name','name',caption,top_titles_by_vacs_labels)
     st.plotly_chart(pos_plot)
 
 
@@ -78,31 +79,41 @@ def display_work_reqs_section(df):
   if len(df) < 1:
     return st.write('No Stats found for job requirements')
   with col1:
-    st.subheader("Companies providing Internship")
-    intern_plot = plot_pie(df['internship'], 'Proportions of Internships',internship_labels_map)
+    internship_labels_map = {
+      True: t('chart_labels.internship.true'),
+      False: t('chart_labels.internship.false'),
+    }
+    captions = t('chart_captions.company_internships')
+    intern_plot = plot_pie(df['internship'], captions,internship_labels_map)
     st.plotly_chart(intern_plot)
   with col2:
-    st.subheader("Experience requirements among companies")
-    exp_plot = plot_pie(df['experience_id'], 'Distribution of experience', experience_labels_map)
+    experience_labels_map = t('chart_labels.experience')
+    captions = t('chart_captions.experience_requirements')
+    exp_plot = plot_pie(df['experience_id'], captions, experience_labels_map)
     st.plotly_chart(exp_plot)
+    
+
+# @st.cache_data(ttl=3600) 
+def build_work_pie(df, prop: str):
+  df_selected = df[prop]
+  labels_map = t(f'chart_labels.{prop}')
+  captions = t(f'chart_captions.{prop}')
+  plot = plot_pie(df_selected, captions,labels_map)
+  st.plotly_chart(plot)
+
 
 def display_work_formats_section(df):
   col1, col2 = st.columns(2)
   if len(df) < 1:
     return st.write('No Stats found for work formats')
   with col1:
-    st.subheader("Work Formats per companies")
-    work_formats = plot_pie(df['work_format'], 'Distribution of work format',work_formats_labels_map)
-    st.plotly_chart(work_formats)
+    build_work_pie(df, 'work_formats')
   with col2:
-    st.subheader("Work Hours for companies")
-    work_hours = plot_pie(df['working_hours'], 'Distribution of working hours among companies',work_hour_labels_map)
-    st.plotly_chart(work_hours)
+    build_work_pie(df, 'working_hours')
 
 def display_jobs_tab():
   jobs_df = st.session_state.jobs_df
   salary_df = st.session_state.salary_df
   display_vacs_by_title_section(jobs_df,salary_df)
-  st.header("Jobs")
   display_work_reqs_section(jobs_df)
   display_work_formats_section(jobs_df)

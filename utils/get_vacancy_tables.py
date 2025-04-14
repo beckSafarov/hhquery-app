@@ -49,7 +49,7 @@ def get_vacancy_tables(jobs):
             'schedule': row['schedule']['id'],
             'employment_form': row['employment_form']['id'],
             'working_hours': row['working_hours'][0]['id'],
-            'work_format': row.get('work_format', [])[0].get('id') if len(row['work_format']) > 0 else None,
+            'work_formats': row.get('work_format', [])[0].get('id') if len(row['work_format']) > 0 else None,
             'employer_id': employer_id,     
             'experience_id': row['experience']['id']
         })

@@ -1,7 +1,9 @@
 import streamlit as st #type:ignore
 from data.index import currencies
 from utils.currency_exchange import exchange_currencies
+from utils.get_text import get_translated_text as t
 import math 
+
 
 def get_avg_in_currency(df, def_currency):
   total_from = 0
@@ -74,8 +76,9 @@ def display_main_stats():
   salary_df = st.session_state.salary_df
   jobs_df = st.session_state.jobs_df
   calculated_values = calculate(salary_df, jobs_df)
+
   plot([
-     {"label":"Average Minimum Salary", "value":calculated_values['average_to']},
-     {"label":"Average Maximum Salary", "value":calculated_values['average_from']},
-     {"label":"Overall Vacancies", "value":calculated_values['overall_vacancies']},
+     {"label":t('basic_stats.avg_min_salary'), "value":calculated_values['average_to']},
+     {"label":t('basic_stats.avg_max_salary'), "value":calculated_values['average_from']},
+     {"label":t('basic_stats.overall_vacancies'), "value":calculated_values['overall_vacancies']},
   ])

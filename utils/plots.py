@@ -3,6 +3,7 @@ import plotly.express as px #type:ignore
 def plot_pie(df, title, labels_map=None):
     # Create pie chart using plotly express
     value_counts = df.value_counts()
+
     names = value_counts.index.to_series().map(labels_map) if labels_map is not None else value_counts.index
     fig = px.pie(
         values=value_counts.values,
@@ -21,7 +22,7 @@ def plot_pie(df, title, labels_map=None):
             xanchor="left",
             x=1.05
         ),
-        title_x=0.5  # Center the title
+        title_x=0 # Center the title
     )
     
     # Optional: Customize colors if needed
