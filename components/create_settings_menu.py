@@ -15,11 +15,11 @@ def create_settings_menu():
             st.session_state.language = next((lang['id'] for lang in languages if lang['label']== st.session_state.selected_language))
 
         st.selectbox(
-            "Language / Язык / Til",
+            "Language / Язык",
             language_labels,
             index=0,
             on_change=change_language,
-            key="selected_language"
+            key="selected_language",
         )
 
         # Currency selection

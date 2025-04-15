@@ -78,9 +78,9 @@ def build_sidebar():
         country_id: id of the selected country
     """
 
+    create_settings_menu()
     title = t("sidebar_filter_labels.title")
     st.sidebar.title(title)
     country_radios()
     role_radios()
     currency_radios()
-    create_settings_menu()
