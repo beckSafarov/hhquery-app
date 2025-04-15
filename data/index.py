@@ -1,6 +1,6 @@
 import streamlit as st  # type: ignore
 
-pro_roles = [
+roles_with_ids = [
     {"name": "bi-analyst", "id": 156},
     {"name": "devops", "id": 160},
     {"name": "analyst", "id": 10},

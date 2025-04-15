@@ -5,13 +5,14 @@ def create_settings_menu():
     with st.sidebar.expander("⚙️ Display Settings", expanded=False):
         # Language selection
         language_labels = [lang['label'] for lang in languages]
-        
+
         if "language" not in st.session_state:
             st.session_state.language = "en"
-            
+            st.session_state.selected_language = language_labels[0]
+
         def change_language():
             st.session_state.language = next((lang['id'] for lang in languages if lang['label']== st.session_state.selected_language))
-            
+
         st.selectbox(
             "Language / Язык / Til",
             language_labels,
@@ -19,10 +20,10 @@ def create_settings_menu():
             on_change=change_language,
             key="selected_language"
         )
-        
+
         # Currency selection
         currencies_list = [curr['name'].upper() for curr in currencies]
-        
+
         option = st.selectbox(
             "Currency",
             currencies_list,

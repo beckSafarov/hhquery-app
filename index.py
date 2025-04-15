@@ -35,13 +35,13 @@ st.title(page_text["title"])
 def main():
     # sidebar and values selected from sidebar filters
     build_sidebar()
-    country = default_country
-    role = default_role
+    country_id = default_country["id"]
+    role_id = default_role["id"]
     if "country" in st.session_state and "role" in st.session_state:
-        country = st.session_state.country
-        role = st.session_state.role
+        country_id = st.session_state.country["id"]
+        role_id = st.session_state.role["id"]
 
-    jobs = get_all_vacancies(country, role)
+    jobs = get_all_vacancies(country_id, role_id)
 
     get_vacancy_tables(jobs)
 
