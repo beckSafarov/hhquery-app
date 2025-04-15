@@ -1,5 +1,5 @@
 {
-  "en":{
+  "en": {
     "tab_title": "IT Job Stats",
     "page_title": "IT Job Stats — Stats on IT job openings",
     "sidebar_filter_labels": {
@@ -31,9 +31,9 @@
       "top_paying_employers": "Highest Paying Employers"
     },
     "chart_labels": {
-      "top_titles":{
-        "x":"Number of vacancies",
-        "y":"Job Title"
+      "top_titles": {
+        "x": "Number of vacancies",
+        "y": "Job Title"
       },
       "internship": {
         "true": "Internship",
@@ -223,5 +223,4 @@
       "technical-writer": "Технический писатель"
     }
   }
-
 }

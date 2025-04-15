@@ -1,6 +1,4 @@
-import streamlit as st #type: ignore
-lang = 'en'
-
+import streamlit as st  # type: ignore
 
 pro_roles = [
     {"name": "bi-analyst", "id": 156},
@@ -31,12 +29,12 @@ pro_roles = [
 ]
 
 currencies = [
-  {'name':"usd","symbol":"$"},
-  {'name':"uzs","symbol":"лв"},
-  {'name':"kzt","symbol":"₸"},
-  {'name':"rub","symbol":"₽"},
-  {'name':"kgs","symbol":"KGS"},
-  {'name':"byn","symbol":"Rbl"},
+    {"name": "usd", "symbol": "$"},
+    {"name": "uzs", "symbol": "лв"},
+    {"name": "kzt", "symbol": "₸"},
+    {"name": "rub", "symbol": "₽"},
+    {"name": "kgs", "symbol": "KGS"},
+    {"name": "byn", "symbol": "Rbl"},
 ]
 
 country_ids = [
@@ -49,6 +47,6 @@ country_ids = [
 
 
 languages = [
-  {"id":"en","label":"🇬🇧 English"},
-  {"id":"ru","label":"🇷🇺 Русский"},
+    {"id": "en", "label": "🇬🇧 English"},
+    {"id": "ru", "label": "🇷🇺 Русский"},
 ]
