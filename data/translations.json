@@ -120,6 +120,9 @@
       "vacs_title": "No Stats found for vacancies by title",
       "job_requirements": "No Stats found for job requirements",
       "work_formats": "No Stats found for work formats"
+    },
+    "display_settings": {
+      "title": "⚙️ Display Settings"
     }
   },
   "ru": {
@@ -243,6 +246,9 @@
       "vacs_title": "Нет статистики по вакансиям по названию должности",
       "job_requirements": "Нет статистики по требованиям к вакансиям",
       "work_formats": "Нет статистики по форматам работы"
+    },
+    "display_settings": {
+      "title": "⚙️ Настройки информации"
     }
   }
 }

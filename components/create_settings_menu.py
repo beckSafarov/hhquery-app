@@ -1,8 +1,9 @@
 import streamlit as st #type:ignore
 from data.index import currencies,languages
+from utils.get_text import get_translated_text as t
 
 def create_settings_menu():
-    with st.sidebar.expander("⚙️ Display Settings", expanded=False):
+    with st.sidebar.expander(t("display_settings.title"), expanded=False):
         # Language selection
         language_labels = [lang['label'] for lang in languages]
 
