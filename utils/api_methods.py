@@ -5,8 +5,8 @@ from urllib3.util.retry import Retry # type: ignore
 import streamlit as st # type: ignore
 import asyncio
 import aiohttp # type: ignore
+from utils.get_text import get_translated_error as te
 from configs import API
-
 
 
 def create_session():
@@ -35,14 +35,14 @@ def get_vacancies_by_page(session, page=1, role_id=10,country_id=97):
         # Add timeout parameter (10 seconds)
         response = session.get(url, timeout=10)
         response.raise_for_status()  # Raise an exception for bad status codes
-        
+
         return response.json()
-    
+
     except requests.exceptions.Timeout:
-        st.error(f"Request timeout for page {page}. The server took too long to respond.")
+        st.error(te("request_timeout", page))
         return None
     except requests.exceptions.RequestException as e:
-        st.error(f"Error fetching page {page}: {str(e)}")
+        st.error(te("error_fetching", page, str(e)))
         return None
 
 @st.cache_data(ttl=3600) 
@@ -52,41 +52,41 @@ def get_all_vacancies(country,role):
     if country and role:
         role_id = role['id']
         country_id = country['id']
-    
+
     # Create a progress bar
     progress_text = "Fetching jobs..."
     progress_bar = st.progress(0)
 
     print(progress_text)
-    
+
     # Get first page and initialize variables
     json_data = get_vacancies_by_page(session, 1, role_id,country_id)
     if not json_data:
-        st.write("Failed to fetch initial data")
+        st.error(te("fetch_failure"))
         return []
-    
+
     pages = json_data['pages']
     overall_jobs = json_data['found']
     jobs = json_data['items']
-    
+
     print(f"Total jobs found: {overall_jobs}")
     print(f"Total pages to fetch: {pages}")
-    
+
     # Fetch remaining pages
     if pages > 1:
         for i in range(1, pages):
             # Update progress bar
             progress_bar.progress((i + 1) / pages)
-            
+
             more_jobs = get_vacancies_by_page(session, i + 1)
             if more_jobs:
                 jobs.extend(more_jobs['items'])
             else:
-                st.warning(f"Failed to fetch page {i + 1}")
-            
+                st.warning(te("fetch_page_number", i + 1))
+
             # Add a small delay to be nice to the API
             time.sleep(0.2)  # Increased delay slightly
-    
+
     # Clear the progress bar
     progress_bar.empty()
     return jobs

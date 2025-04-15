@@ -5,7 +5,7 @@ from utils.get_text import get_translated_text as t
 
 def display_top_employers_with_vacancies(employer_df):
     if len(employer_df) < 1:
-        return st.write("No Stats found for top employers by vacancies")
+        return st.write(t("error_messages.emps_vacs"))
     caption = t("chart_captions.top_employers_vacancies")
     labels = {
         "employer_name": t("chart_labels.emps_most_vacancies.employer_name"),
@@ -18,7 +18,7 @@ def display_top_employers_with_vacancies(employer_df):
 
 def display_top_employers_by_avg_salary(employer_df,salary_df):
     if len(salary_df) < 1 or len(employer_df) < 1:
-        return st.write("No Stats found for top employers by average salaries")
+        return st.write(t("error_messages.top_emps_sals"))
     merged = salary_df.merge(
         employer_df, how="inner", left_on="employer_id", right_on="id"
     )

@@ -9,18 +9,6 @@ def load_translations():
 
 translations = load_translations()
 
-def get_static_dicts(prop, _: str="en"):
-    lang = 'en'
-    if 'language' in st.session_state:
-        lang = st.session_state.language
-    result = translations.get(lang, {})
-    return result[prop]
-
-
-def get_roles(lang: str = "en"):
-   return get_static_dicts('roles',lang)
-    
-
 def get_text(path: str, lang: str = "en") -> str:
     keys = path.split(".")
     result = translations.get(lang, {})
@@ -34,7 +22,18 @@ def get_text(path: str, lang: str = "en") -> str:
     return result
 
 def get_translated_text(keyword):
-  if 'language' in st.session_state:
-    return get_text(keyword, st.session_state.language)
-  return get_text(keyword)
-  
+    if "language" in st.session_state:
+        return get_text(keyword, st.session_state.language)
+    return get_text(keyword)
+
+
+def get_translated_error(key: str, page: int = None, description: str = ""):
+    """gets error messages in the locale
+
+    Args:
+        key (str): key to the message in translations
+        page (int): page number where there is an error
+        description (str): error description message if applied
+    """
+    message = get_translated_text(f"error_messages.{key}")
+    return message.format(page=page, message=description)

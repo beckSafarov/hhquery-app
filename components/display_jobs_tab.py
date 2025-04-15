@@ -51,49 +51,48 @@ def build_advanced_grid_table(df):
 
 
 def display_vacs_by_title_section(df,salary_df):
-  col1, col2 = st.columns(2)
-  if len(df) < 1:
-    return st.write('No Stats found for vacancies by title')
-  with col1:
-    role_counts = df['name'].value_counts().reset_index()
-    role_counts.index = role_counts.index + 1
-    role_counts_df = pd.DataFrame(role_counts)
-    if len(salary_df) < 1:
-      st.dataframe(role_counts,  use_container_width=True,
-      hide_index=False)
-    else:
-      merged_df = get_title_and_salaries_df(df,salary_df)
-      sum_salaries = get_sum_salaries_per_title(merged_df)
-      merged_role_counts = pd.merge(role_counts_df,sum_salaries,on='name',how='left')
-      build_advanced_grid_table(merged_role_counts)
-    
-  with col2:
-    caption = t('chart_captions.top_titles_by_vacancies')
-    top_titles_by_vacs_labels = t('chart_labels.top_titles')
-    pos_plot=plot_hbar(df,'name','name',caption,top_titles_by_vacs_labels)
-    st.plotly_chart(pos_plot)
+    col1, col2 = st.columns(2)
+    if len(df) < 1:
+        return st.write(t("error_messages.vacs_title"))
+    with col1:
+        role_counts = df["name"].value_counts().reset_index()
+        role_counts.index = role_counts.index + 1
+        role_counts_df = pd.DataFrame(role_counts)
+        if len(salary_df) < 1:
+            st.dataframe(role_counts, use_container_width=True, hide_index=False)
+        else:
+            merged_df = get_title_and_salaries_df(df,salary_df)
+            sum_salaries = get_sum_salaries_per_title(merged_df)
+            merged_role_counts = pd.merge(role_counts_df,sum_salaries,on='name',how='left')
+            build_advanced_grid_table(merged_role_counts)
+
+    with col2:
+        caption = t('chart_captions.top_titles_by_vacancies')
+        top_titles_by_vacs_labels = t('chart_labels.top_titles')
+        pos_plot=plot_hbar(df,'name','name',caption,top_titles_by_vacs_labels)
+        st.plotly_chart(pos_plot)
 
 
 def display_work_reqs_section(df):
-  col1, col2 = st.columns(2)
-  if len(df) < 1:
-    return st.write('No Stats found for job requirements')
-  with col1:
-    internship_labels_map = {
-      True: t('chart_labels.internship.true'),
-      False: t('chart_labels.internship.false'),
-    }
-    captions = t('chart_captions.company_internships')
-    intern_plot = plot_pie(df['internship'], captions,internship_labels_map)
-    st.plotly_chart(intern_plot)
-  with col2:
-    experience_labels_map = t('chart_labels.experience')
-    captions = t('chart_captions.experience_requirements')
-    exp_plot = plot_pie(df['experience_id'], captions, experience_labels_map)
-    st.plotly_chart(exp_plot)
-    
+    col1, col2 = st.columns(2)
+    if len(df) < 1:
+        return st.write(t("error_messages.job_requirements"))
+    with col1:
+        internship_labels_map = {
+            True: t("chart_labels.internship.true"),
+            False: t("chart_labels.internship.false"),
+        }
+        captions = t("chart_captions.company_internships")
+        intern_plot = plot_pie(df["internship"], captions, internship_labels_map)
+        st.plotly_chart(intern_plot)
+    with col2:
+        experience_labels_map = t("chart_labels.experience")
+        captions = t("chart_captions.experience_requirements")
+        exp_plot = plot_pie(df["experience_id"], captions, experience_labels_map)
+        st.plotly_chart(exp_plot)
 
-# @st.cache_data(ttl=3600) 
+
+# @st.cache_data(ttl=3600)
 def build_work_pie(df, prop: str):
   df_selected = df[prop]
   labels_map = t(f'chart_labels.{prop}')
@@ -103,13 +102,13 @@ def build_work_pie(df, prop: str):
 
 
 def display_work_formats_section(df):
-  col1, col2 = st.columns(2)
-  if len(df) < 1:
-    return st.write('No Stats found for work formats')
-  with col1:
-    build_work_pie(df, 'work_formats')
-  with col2:
-    build_work_pie(df, 'working_hours')
+    col1, col2 = st.columns(2)
+    if len(df) < 1:
+        return st.write(t("error_messages.work_formats"))
+    with col1:
+        build_work_pie(df, "work_formats")
+    with col2:
+        build_work_pie(df, "working_hours")
 
 def display_jobs_tab():
   jobs_df = st.session_state.jobs_df

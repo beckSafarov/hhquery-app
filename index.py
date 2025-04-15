@@ -35,7 +35,6 @@ st.title(page_text["title"])
 def main():
     # sidebar and values selected from sidebar filters
     build_sidebar()
-
     country = default_country
     role = default_role
     if "country" in st.session_state and "role" in st.session_state:
