@@ -39,22 +39,12 @@ currencies = [
 ]
 
 countries = [
-    {"id": 16, "code": "be", "emoji": "🇧🇪"},  # Belgium
+    {"id": 16, "code": "be", "emoji": "🇧🇾"},  # Belarus
     {"id": 113, "code": "ru", "emoji": "🇷🇺"},  # Russia
     {"id": 40, "code": "kz", "emoji": "🇰🇿"},  # Kazakhstan
     {"id": 48, "code": "kg", "emoji": "🇰🇬"},  # Kyrgyzstan
     {"id": 97, "code": "uz", "emoji": "🇺🇿"},  # Uzbekistan
 ]
-
-
-country_flags = {
-    "be": "🇧🇾",
-    "ru": "🇷🇺",
-    "kz": "🇰🇿",
-    "kg": "🇰🇬",
-    "uz": "🇺🇿",
-}
-
 
 languages = [
     {"id": "en", "label": "🇬🇧 English"},

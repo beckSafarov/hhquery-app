@@ -4,7 +4,6 @@ from utils.get_text import get_translated_text as t
 from utils.utils import find_key_by_value, find_index_by_prop
 from components.create_settings_menu import create_settings_menu
 
-
 def country_radios():
     countries = t("countries")
     country_names = list(countries.values())
