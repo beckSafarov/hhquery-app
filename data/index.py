@@ -1,32 +1,33 @@
 import streamlit as st  # type: ignore
 
-roles_with_ids = [
-    {"name": "bi-analyst", "id": 156},
-    {"name": "devops", "id": 160},
-    {"name": "analyst", "id": 10},
-    {"name": "art-director", "id": 12},
-    {"name": "business-analyst", "id": 150},
-    {"name": "game-designer", "id": 25},
-    {"name": "data-scientist", "id": 165},
-    {"name": "designer", "id": 34},
-    {"name": "cio", "id": 36},
-    {"name": "product-manager", "id": 73},
-    {"name": "methodologist", "id": 155},
-    {"name": "programmer", "id": 96},
-    {"name": "product-analyst", "id": 164},
-    {"name": "dev-team-lead", "id": 104},
-    {"name": "analytics-head", "id": 157},
-    {"name": "project-manager", "id": 107},
-    {"name": "network-engineer", "id": 112},
-    {"name": "system-admin", "id": 113},
-    {"name": "system-analyst", "id": 148},
-    {"name": "system-engineer", "id": 114},
-    {"name": "security-specialist", "id": 116},
-    {"name": "support-specialist", "id": 121},
-    {"name": "tester", "id": 124},
-    {"name": "cto", "id": 125},
-    {"name": "technical-writer", "id": 126},
+roles = [
+    {"name": "bi-analyst", "id": 156, "emoji": "📊"},
+    {"name": "devops", "id": 160, "emoji": "⚙️"},
+    {"name": "analyst", "id": 10, "emoji": "📈"},
+    {"name": "art-director", "id": 12, "emoji": "🎨"},
+    {"name": "business-analyst", "id": 150, "emoji": "🕵️‍♂️"},
+    {"name": "game-designer", "id": 25, "emoji": "🎮"},
+    {"name": "data-scientist", "id": 165, "emoji": "🧪"},
+    {"name": "designer", "id": 34, "emoji": "🖌️"},
+    {"name": "cio", "id": 36, "emoji": "👨‍💼"},
+    {"name": "product-manager", "id": 73, "emoji": "📦"},
+    {"name": "methodologist", "id": 155, "emoji": "📚"},
+    {"name": "programmer", "id": 96, "emoji": "👨‍💻"},
+    {"name": "product-analyst", "id": 164, "emoji": "🔍"},
+    {"name": "dev-team-lead", "id": 104, "emoji": "🧑‍🏫"},
+    {"name": "analytics-head", "id": 157, "emoji": "📊"},
+    {"name": "project-manager", "id": 107, "emoji": "🗂️"},
+    {"name": "network-engineer", "id": 112, "emoji": "🌐"},
+    {"name": "system-admin", "id": 113, "emoji": "🛠️"},
+    {"name": "system-analyst", "id": 148, "emoji": "🧠"},
+    {"name": "system-engineer", "id": 114, "emoji": "💻"},
+    {"name": "security-specialist", "id": 116, "emoji": "🔐"},
+    {"name": "support-specialist", "id": 121, "emoji": "🧰"},
+    {"name": "tester", "id": 124, "emoji": "🧪"},
+    {"name": "cto", "id": 125, "emoji": "🚀"},
+    {"name": "technical-writer", "id": 126, "emoji": "📝"},
 ]
+
 
 currencies = [
     {"name": "usd", "symbol": "$"},
@@ -37,13 +38,22 @@ currencies = [
     {"name": "byn", "symbol": "Rbl"},
 ]
 
-country_ids = [
-    {"id": 16, "code": "be"},
-    {"id": 113, "code": "ru"},
-    {"id": 40, "code": "kz"},
-    {"id": 48, "code": "kg"},
-    {"id": 97, "code": "uz"},
+countries = [
+    {"id": 16, "code": "be", "emoji": "🇧🇪"},  # Belgium
+    {"id": 113, "code": "ru", "emoji": "🇷🇺"},  # Russia
+    {"id": 40, "code": "kz", "emoji": "🇰🇿"},  # Kazakhstan
+    {"id": 48, "code": "kg", "emoji": "🇰🇬"},  # Kyrgyzstan
+    {"id": 97, "code": "uz", "emoji": "🇺🇿"},  # Uzbekistan
 ]
+
+
+country_flags = {
+    "be": "🇧🇾",
+    "ru": "🇷🇺",
+    "kz": "🇰🇿",
+    "kg": "🇰🇬",
+    "uz": "🇺🇿",
+}
 
 
 languages = [

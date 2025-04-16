@@ -1,5 +1,5 @@
 import streamlit as st  # type:ignore
-from data.index import country_ids, currencies, roles_with_ids
+from data.index import countries as country_ids, currencies, roles as roles_with_ids
 from utils.get_text import get_translated_text as t
 from utils.utils import find_key_by_value, find_index_by_prop
 from components.create_settings_menu import create_settings_menu
@@ -25,25 +25,25 @@ def country_radios():
     )
 
     if country_id:
-        st.session_state.country = {"id": None, "name": ""}
+        st.session_state.country = {"id": None, "key": ""}
         st.session_state.country["id"] = country_id
-        st.session_state.country["name"] = selected_country_name
+        st.session_state.country["key"] = selected_country_key
     return country_id
 
 
 def role_radios():
     if "role" not in st.session_state:
-        st.session_state.role = {"id": None, "label": "", "last_index": 0}
+        st.session_state.role = {"id": None, "key": "", "last_index": 0}
 
     roles = t("roles")  # get roles data based on the current language
     role_labels = list(roles.values())
     text_select_role = t(
         "sidebar_filter_labels.select_role"
     )  # text that says: "Select role" in different languages
-    selected_role = st.sidebar.radio(
+    selected_role_label = st.sidebar.radio(
         text_select_role, role_labels, st.session_state.role["last_index"]
     )
-    selected_role_key = find_key_by_value(roles, selected_role)
+    selected_role_key = find_key_by_value(roles, selected_role_label)
 
     role_id = next(
         (role["id"] for role in roles_with_ids if role["name"] == selected_role_key),
@@ -53,13 +53,14 @@ def role_radios():
 
     if role_id:
         st.session_state.role["id"] = role_id
-        st.session_state.role["label"] = selected_role
+        st.session_state.role["key"] = selected_role_key
         st.session_state.role["last_index"] = role_index
     return role_id
 
 
 def currency_radios():
-    st.session_state.selected_currency = "usd"
+    if "currency" not in st.session_state:
+        st.session_state.selected_currency = "usd"
     select_currency_text = t("sidebar_filter_labels.select_currency")
     currency_labels = [field["name"].upper() for field in currencies]
     selected_label = st.sidebar.radio(select_currency_text, currency_labels)

@@ -12,6 +12,11 @@
       "country": "Country",
       "role": "Role"
     },
+    "badges": {
+      "country": "Country",
+      "role": "Role",
+      "currency": "Currency"
+    },
     "basic_stats": {
       "avg_min_salary": "Average Minimum Salary",
       "avg_max_salary": "Average Maximum Salary",
@@ -137,6 +142,11 @@
     "selected_tags": {
       "country": "Страна",
       "role": "Роль"
+    },
+    "badges": {
+      "country": "Страна",
+      "role": "Роль",
+      "currency": "Валюта"
     },
     "basic_stats": {
       "avg_min_salary": "Средняя минимальная зарплата",

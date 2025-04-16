@@ -14,6 +14,7 @@ from components.display_jobs_tab import display_jobs_tab
 from components.display_employers_tab import display_employers_tab
 from components.basic_stats import display_main_stats
 from components.sidebar import build_sidebar
+from components.display_filter_badges import display_filter_badges
 from utils.get_vacancy_tables import get_vacancy_tables
 from utils.api_methods import get_all_vacancies
 from utils.get_text import get_translated_text as t
@@ -42,6 +43,8 @@ def main():
         role_id = st.session_state.role["id"]
 
     jobs = get_all_vacancies(country_id, role_id)
+
+    display_filter_badges()
 
     get_vacancy_tables(jobs)
 
