@@ -27,7 +27,8 @@
       "employers": "Employers"
     },
     "chart_captions": {
-      "top_titles_by_vacancies": "Top Job Titles by Number of Vacancies",
+      "top_titles_by_salary": "Top Job Titles by Salary Range",
+      "top_titles_by_number": "Top Job Titles by Number of Vacancies",
       "company_internships": "Companies Providing Internships",
       "experience_requirements": "Distribution of Experience Requirements",
       "work_formats": "Distribution of Work Format",
@@ -36,7 +37,11 @@
       "top_paying_employers": "Highest Paying Employers"
     },
     "chart_labels": {
-      "top_titles": {
+      "top_titles_by_salary": {
+        "name": "Job Title",
+        "salary": "Salary"
+      },
+      "top_titles_by_number": {
         "x": "Number of vacancies",
         "y": "Job Title"
       },
@@ -79,6 +84,12 @@
       "emps_top_avg_salary": {
         "x": "Average Salary",
         "y": "Company Name"
+      }
+    },
+    "chart_legends": {
+      "top_titles_by_salary": {
+        "title": "Salary Range",
+        "labels": { "from": "From", "to": "To" }
       }
     },
     "countries": {
@@ -158,7 +169,8 @@
       "employers": "Работодатели"
     },
     "chart_captions": {
-      "top_titles_by_vacancies": "Топ вакансий по количеству вакансий",
+      "top_titles_by_salary": "Лучшие должности по диапазону зарплат",
+      "top_titles_by_number": "Топ вакансий по количеству вакансий",
       "company_internships": "Компании, предлагающие стажировки",
       "experience_requirements": "Распределение требований по опыту",
       "work_formats": "Распределение форматов работы",
@@ -167,7 +179,12 @@
       "top_paying_employers": "Самые высокооплачивающие работодатели"
     },
     "chart_labels": {
-      "top_titles": {
+      "top_titles_by_salary": {
+        "name": "Должность",
+        "salary": "Зарплата"
+      },
+
+      "top_titles_by_number": {
         "x": "Количество вакансий",
         "y": "Должность"
       },
@@ -210,6 +227,12 @@
       "emps_top_avg_salary": {
         "x": "Средняя зарплата",
         "y": "Название компании"
+      }
+    },
+    "chart_legends": {
+      "top_titles_by_salary": {
+        "title": "Диапазон Зарплат",
+        "labels": { "from": "От", "to": "До" }
       }
     },
     "countries": {

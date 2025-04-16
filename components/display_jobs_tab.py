@@ -1,6 +1,6 @@
 import streamlit as st #type:ignore
 import pandas as pd #type:ignore
-from utils.plots import plot_pie,plot_hbar
+from utils.plots import plot_pie, plot_hbar, plot_stacked_vbar
 import numpy as np #type:ignore
 from st_aggrid import AgGrid, GridOptionsBuilder #type:ignore
 from utils.get_text import get_translated_text as t
@@ -14,43 +14,29 @@ def get_title_and_salaries_df(df,salary_df):
   return merged
 
 def get_sum_salaries_per_title(merged_df):
-  sum_salaries = merged_df.groupby('name')[['from', 'to']].sum()
-  return sum_salaries.replace(0.00,'-')
+    sum_salaries = merged_df.groupby("name")[["from", "to"]].sum()
+    return sum_salaries.replace(0.00, "-")
 
-def build_advanced_grid_table(df):
-  gb_advanced = GridOptionsBuilder.from_dataframe(df)
-  gb_advanced.configure_column("name", filter="agTextColumnFilter")
-  gb_advanced.configure_column(
-    "from", 
-    filter="agNumberColumnFilter",
-    type=["numericColumn"],  # Ensures numeric behavior
-    valueFormatter="data.from === null || isNaN(data.from) ? 'N/A' : data.from"  # Custom display for NaN
-  )
-  gb_advanced.configure_column(
-    "to", 
-    filter="agNumberColumnFilter",
-    type=["numericColumn"],
-    valueFormatter="data.to === null || isNaN(data.to) ? 'N/A' : data.to"
-  )
-  gb_advanced.configure_column("count", filter="agNumberColumnFilter",type=["numericColumn"])
-  gb_advanced.configure_grid_options(enable_quick_filter=True)
-  gb_advanced.configure_selection('multiple', use_checkbox=False, groupSelectsChildren=True)
-  gridOptions_advanced = gb_advanced.build()
-  AgGrid(
-    df,
-    gridOptions=gridOptions_advanced,
-    data_return_mode='AS_INPUT',
-    update_mode='MODEL_CHANGED',
-    fit_columns_on_grid_load=True,
-    allow_unsafe_jscode=True,  # Set it to True to allow jsfunction to be injected
-    enable_enterprise_modules=False,
-    #height=350,
-    #width='100%',
-    reload_data=True
-  )
+
+def get_roles_by_salaries_df(jobs_df, salary_df, role_counts_df):
+    merged_df = get_title_and_salaries_df(jobs_df, salary_df)
+    sum_salaries = get_sum_salaries_per_title(merged_df)
+    merged_roles_df = pd.merge(role_counts_df, sum_salaries, on="name", how="left")
+    return merged_roles_df[
+        (merged_roles_df["from"] != "-") & (merged_roles_df["to"] != "-")
+    ]
 
 
 def display_vacs_by_title_section(df,salary_df):
+    """display vacancies by job title and top salaries
+
+    Args:
+        df (dataframe): jobs dataframe, containing job titles
+        salary_df (dataframe): salaries dataframe containing 'from' and 'to' columns for salary range
+
+    Returns:
+        void: visualizations
+    """
     col1, col2 = st.columns(2)
     if len(df) < 1:
         return st.write(t("error_messages.vacs_title"))
@@ -61,15 +47,27 @@ def display_vacs_by_title_section(df,salary_df):
         if len(salary_df) < 1:
             st.dataframe(role_counts, use_container_width=True, hide_index=False)
         else:
-            merged_df = get_title_and_salaries_df(df,salary_df)
-            sum_salaries = get_sum_salaries_per_title(merged_df)
-            merged_role_counts = pd.merge(role_counts_df,sum_salaries,on='name',how='left')
-            build_advanced_grid_table(merged_role_counts)
+            merged_role_counts = get_roles_by_salaries_df(df, salary_df, role_counts_df)
+            caption = t("chart_captions.top_titles_by_salary")
+            labels = t("chart_labels.top_titles_by_salary")
+            legend_title = t("chart_legends.top_titles_by_salary.title")
+            range_columns = ["from", "to"]
+            range_columns_translated = t("chart_legends.top_titles_by_salary.labels")
+            plot_top_sals = plot_stacked_vbar(
+                merged_role_counts,
+                "name",
+                range_columns,
+                range_columns_translated,
+                labels,
+                caption,
+                legend_title,
+            )
+            st.plotly_chart(plot_top_sals)
 
     with col2:
-        caption = t('chart_captions.top_titles_by_vacancies')
-        top_titles_by_vacs_labels = t('chart_labels.top_titles')
-        pos_plot=plot_hbar(df,'name','name',caption,top_titles_by_vacs_labels)
+        caption = t("chart_captions.top_titles_by_number")
+        labels = t("chart_labels.top_titles_by_number")
+        pos_plot = plot_hbar(df, "name", "name", caption, labels)
         st.plotly_chart(pos_plot)
 
 
