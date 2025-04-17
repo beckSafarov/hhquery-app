@@ -1,4 +1,5 @@
 import plotly.express as px #type:ignore
+import streamlit as st  # type:ignore
 from st_aggrid import AgGrid, GridOptionsBuilder  # type:ignore
 from utils.utils import truncate as trunc
 
@@ -33,8 +34,7 @@ def plot_pie(df, title, labels_map=None):
         textposition='inside',
         textinfo='percent+label'
     )
-
-    return fig
+    st.plotly_chart(fig)
 
 
 def plot_stacked_vbar(
@@ -86,18 +86,19 @@ def plot_stacked_vbar(
     )
 
     fig.update_layout(xaxis_tickangle=-45)
-    # fig.show()
-    return fig
+    st.plotly_chart(fig)
 
 
 def plot_vbar(df, title,labels, group_by, id):
-  top_actors_count = 10
-  actor_counts = df.groupby(group_by)[id].count().sort_values(ascending=False)
+    top_actors_count = 10
+    actor_counts = df.groupby(group_by)[id].count().sort_values(ascending=False)
 
-  top_actors = actor_counts.head(top_actors_count)
-  fig = px.bar(top_actors, x=top_actors.index, y=top_actors.values, title=title,labels=labels)
+    top_actors = actor_counts.head(top_actors_count)
+    fig = px.bar(
+        top_actors, x=top_actors.index, y=top_actors.values, title=title, labels=labels
+    )
 
-  return fig
+    st.plotly_chart(fig)
 
 
 def plot_hbar(df, group_by, id,title,labels,top_count=8,aggregation_method='count'):
@@ -118,7 +119,7 @@ def plot_hbar(df, group_by, id,title,labels,top_count=8,aggregation_method='coun
         labels=labels,
     )
 
-    return fig
+    st.plotly_chart(fig)
 
 
 def build_advanced_grid_table(df):

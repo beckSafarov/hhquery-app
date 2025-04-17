@@ -126,10 +126,6 @@
       "technical-writer": "Technical Writer"
     },
     "error_messages": {
-      "fetch_failure": "Failed to fetch initial data",
-      "fetch_page_number": "Failed to fetch page {page}",
-      "request_timeout": "Request timeout for page {page}. The server took too long to respond.",
-      "error_fetching": "Error fetching page {page}: {message}",
       "emps_vacs": "No Stats found for top employers by vacancies",
       "vacs_title": "No Stats found for vacancies by title",
       "job_requirements": "No Stats found for job requirements",
@@ -268,10 +264,6 @@
       "technical-writer": "Технический писатель"
     },
     "error_messages": {
-      "fetch_failure": "Не удалось получить начальные данные",
-      "fetch_page_number": "Не удалось получить страницу {page}",
-      "request_timeout": "Время ожидания ответа от сервера для страницы {page} истекло.",
-      "error_fetching": "Ошибка при получении страницы {page}: {message}",
       "emps_vacs": "Нет статистики по топ работодателям по количеству вакансий",
       "vacs_title": "Нет статистики по вакансиям по названию должности",
       "job_requirements": "Нет статистики по требованиям к вакансиям",

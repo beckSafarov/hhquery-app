@@ -3,7 +3,6 @@ import time
 from requests.adapters import HTTPAdapter  # type: ignore
 from urllib3.util.retry import Retry  # type: ignore
 import streamlit as st  # type: ignore
-from utils.get_text import get_translated_error as te
 from configs import API
 
 
@@ -37,12 +36,10 @@ def get_vacancies_by_page(session, page=1, role_id=10, country_id=97):
         return response.json()
 
     except requests.exceptions.Timeout:
-        # st.error(te("request_timeout", page))
         st.error("Request timeout")
         return None
     except requests.exceptions.RequestException as e:
         st.error("Error fetching")
-        # st.error(te("error_fetching", page, str(e)))
         return None
 
 
@@ -60,7 +57,6 @@ def get_all_vacancies(country_id, role_id):
     # Get first page and initialize variables
     json_data = get_vacancies_by_page(session, 1, role_id, country_id)
     if not json_data:
-        # st.error(te("fetch_failure"))
         st.error("Fetching Failure")
         return []
 
@@ -82,7 +78,6 @@ def get_all_vacancies(country_id, role_id):
                 jobs.extend(more_jobs["items"])
             else:
                 st.warning("Fetch page number error")
-                # st.warning(te("fetch_page_number", i + 1))
 
             # Add a small delay to be nice to the API
             time.sleep(0.2)  # Increased delay slightly

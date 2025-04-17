@@ -1,7 +1,7 @@
 import streamlit as st  # type:ignore
-from data.index import currencies
+from data.data import currencies
 from utils.currency_exchange import exchange_currencies
-from utils.get_text import get_translated_text as t
+from utils.get_translated_text import get_translated_text as t
 import math
 
 
@@ -86,7 +86,7 @@ def plot(cards):
             )
 
 
-def display_main_stats():
+def build_basic_stats():
     salary_df = st.session_state.salary_df
     jobs_df = st.session_state.jobs_df
     calculated_values = calculate(salary_df, jobs_df)

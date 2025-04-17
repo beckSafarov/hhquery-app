@@ -5,7 +5,7 @@ from utils.plots import (
     plot_hbar,
     plot_stacked_vbar,
 )
-from utils.get_text import get_translated_text as t
+from utils.get_translated_text import get_translated_text as t
 from utils.get_salaries_converted import get_salaries_converted
 
 def get_title_and_salaries_df(df,salary_df):
@@ -77,7 +77,7 @@ def display_vacs_by_title_section(df, salary_df, currency):
         legend_title = t("chart_legends.top_titles_by_salary.title")
         range_columns = ["from", "to"]
         range_columns_translated = t("chart_legends.top_titles_by_salary.labels")
-        plot_top_sals = plot_stacked_vbar(
+        plot_stacked_vbar(
             merged_role_counts,
             "name",
             range_columns,
@@ -86,12 +86,10 @@ def display_vacs_by_title_section(df, salary_df, currency):
             caption,
             legend_title,
         )
-        st.plotly_chart(plot_top_sals)
     with col2:
         caption = t("chart_captions.top_titles_by_number")
         labels = t("chart_labels.top_titles_by_number")
-        pos_plot = plot_hbar(df, "name", "name", caption, labels)
-        st.plotly_chart(pos_plot)
+        plot_hbar(df, "name", "name", caption, labels)
 
 
 def display_work_reqs_section(df):
@@ -104,13 +102,11 @@ def display_work_reqs_section(df):
             False: t("chart_labels.internship.false"),
         }
         captions = t("chart_captions.company_internships")
-        intern_plot = plot_pie(df["internship"], captions, internship_labels_map)
-        st.plotly_chart(intern_plot)
+        plot_pie(df["internship"], captions, internship_labels_map)
     with col2:
         experience_labels_map = t("chart_labels.experience")
         captions = t("chart_captions.experience_requirements")
-        exp_plot = plot_pie(df["experience_id"], captions, experience_labels_map)
-        st.plotly_chart(exp_plot)
+        plot_pie(df["experience_id"], captions, experience_labels_map)
 
 
 # @st.cache_data(ttl=3600)
@@ -118,8 +114,7 @@ def build_work_pie(df, prop: str):
   df_selected = df[prop]
   labels_map = t(f'chart_labels.{prop}')
   captions = t(f'chart_captions.{prop}')
-  plot = plot_pie(df_selected, captions,labels_map)
-  st.plotly_chart(plot)
+  plot_pie(df_selected, captions,labels_map)
 
 
 def display_work_formats_section(df):
@@ -132,7 +127,7 @@ def display_work_formats_section(df):
         build_work_pie(df, "working_hours")
 
 
-def display_jobs_tab():
+def build_jobs_tab():
     jobs_df = st.session_state.jobs_df
     salary_df_raw = st.session_state.salary_df
     currency = "usd"

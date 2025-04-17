@@ -1,8 +1,8 @@
 import streamlit as st  # type:ignore
-from data.index import countries as country_ids, currencies, roles as roles_with_ids
-from utils.get_text import get_translated_text as t
+from data.data import countries as country_ids, currencies, roles as roles_with_ids
+from utils.get_translated_text import get_translated_text as t
 from utils.utils import find_key_by_value, find_index_by_prop
-from components.create_settings_menu import create_settings_menu
+from components.build_settings_menu import build_settings_menu
 
 def country_radios():
     countries = t("countries")
@@ -73,12 +73,8 @@ def currency_radios():
 
 def build_sidebar():
     """sidebar in the side, mostly for filtering
-
-    Returns:
-        country_id: id of the selected country
     """
-
-    create_settings_menu()
+    build_settings_menu()
     title = t("sidebar_filter_labels.title")
     st.sidebar.title(title)
     country_radios()

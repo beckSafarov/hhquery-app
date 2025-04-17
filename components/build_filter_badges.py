@@ -1,7 +1,7 @@
 import streamlit as st #type:ignore
 import streamlit_shadcn_ui as ui  # type:ignore
-from utils.get_text import get_translated_text as t
-from data.index import countries,roles,currencies
+from utils.get_translated_text import get_translated_text as t
+from data.data import countries,roles,currencies
 
 def get_country_badge():
     country_key = st.session_state.country["key"]
@@ -20,7 +20,7 @@ def get_currency_badge():
     currency_symbol = next((curr['symbol'] for curr in currencies if curr['name'] == currency_key))
     return f'{currency_symbol} {currency_key.upper()}'
 
-def display_filter_badges():
+def build_filter_budges():
     session_state = st.session_state
     country_badge = ''
     role_badge = ''
