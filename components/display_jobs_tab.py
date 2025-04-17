@@ -1,6 +1,10 @@
 import streamlit as st #type:ignore
 import pandas as pd #type:ignore
-from utils.plots import plot_pie, plot_hbar, plot_stacked_vbar
+from utils.plots import (
+    plot_pie,
+    plot_hbar,
+    plot_stacked_vbar,
+)
 from utils.get_text import get_translated_text as t
 from utils.get_salaries_converted import get_salaries_converted
 
@@ -35,36 +39,54 @@ def display_vacs_by_title_section(df, salary_df, currency):
     Returns:
         void: visualizations
     """
-    col1, col2 = st.columns(2)
+
     if len(df) < 1:
         return st.write(t("error_messages.vacs_title"))
-    with col1:
-        role_counts = df["name"].value_counts().reset_index()
-        role_counts.index = role_counts.index + 1
-        role_counts_df = pd.DataFrame(role_counts)
-        if len(salary_df) < 1:
-            st.dataframe(role_counts, use_container_width=True, hide_index=False)
-        else:
-            merged_role_counts = get_roles_by_salaries_df(df, salary_df, role_counts_df)
-            caption = t("chart_captions.top_titles_by_salary")
-            labels = {
-                "name": t("chart_labels.top_titles_by_salary.name"),
-                "salary": f'{t("chart_labels.top_titles_by_salary.salary")} ({currency.upper()})',
-            }
-            legend_title = t("chart_legends.top_titles_by_salary.title")
-            range_columns = ["from", "to"]
-            range_columns_translated = t("chart_legends.top_titles_by_salary.labels")
-            plot_top_sals = plot_stacked_vbar(
-                merged_role_counts,
-                "name",
-                range_columns,
-                range_columns_translated,
-                labels,
-                caption,
-                legend_title,
-            )
-            st.plotly_chart(plot_top_sals)
 
+    role_counts = df["name"].value_counts().reset_index()
+    role_counts.index = role_counts.index + 1
+    role_counts_df = pd.DataFrame(role_counts)
+
+    if len(df) < 1 or len(salary_df) < 1:
+        st.dataframe(
+            df[
+                [
+                    "name",
+                    "area",
+                    "url",
+                    "internship",
+                    "schedule",
+                    "employment_form",
+                    "working_hours",
+                    "experience_id",
+                ]
+            ],
+            use_container_width=True,
+            hide_index=False,
+        )
+        return
+
+    col1, col2 = st.columns(2)
+    with col1:
+        merged_role_counts = get_roles_by_salaries_df(df, salary_df, role_counts_df)
+        caption = t("chart_captions.top_titles_by_salary")
+        labels = {
+            "name": t("chart_labels.top_titles_by_salary.name"),
+            "salary": f'{t("chart_labels.top_titles_by_salary.salary")} ({currency.upper()})',
+        }
+        legend_title = t("chart_legends.top_titles_by_salary.title")
+        range_columns = ["from", "to"]
+        range_columns_translated = t("chart_legends.top_titles_by_salary.labels")
+        plot_top_sals = plot_stacked_vbar(
+            merged_role_counts,
+            "name",
+            range_columns,
+            range_columns_translated,
+            labels,
+            caption,
+            legend_title,
+        )
+        st.plotly_chart(plot_top_sals)
     with col2:
         caption = t("chart_captions.top_titles_by_number")
         labels = t("chart_labels.top_titles_by_number")
@@ -118,5 +140,6 @@ def display_jobs_tab():
         currency = st.session_state.currency
     salary_df = get_salaries_converted(salary_df_raw, currency)
     display_vacs_by_title_section(jobs_df, salary_df, currency)
-    display_work_reqs_section(jobs_df)
-    display_work_formats_section(jobs_df)
+    if len(jobs_df) > 1 or len(salary_df) >= 1:
+        display_work_reqs_section(jobs_df)
+        display_work_formats_section(jobs_df)

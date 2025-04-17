@@ -6,6 +6,10 @@ from utils.get_salaries_converted import get_salaries_converted
 def display_top_employers_with_vacancies(employer_df):
     if len(employer_df) < 1:
         return st.write(t("error_messages.emps_vacs"))
+    elif len(employer_df) == 1:
+        return st.dataframe(
+            employer_df[["employer_name"]], use_container_width=True, hide_index=False
+        )
     caption = t("chart_captions.top_employers_vacancies")
     labels = {
         "employer_name": t("chart_labels.emps_most_vacancies.employer_name"),
@@ -19,7 +23,7 @@ def display_top_employers_with_vacancies(employer_df):
 
 def display_top_employers_by_avg_salary(employer_df, salary_df, currency):
     if len(salary_df) < 1 or len(employer_df) < 1:
-        return st.write(t("error_messages.top_emps_sals"))
+        return
     merged = salary_df.merge(
         employer_df, how="inner", left_on="employer_id", right_on="id"
     )

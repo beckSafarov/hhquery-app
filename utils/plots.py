@@ -1,6 +1,6 @@
 import plotly.express as px #type:ignore
 from st_aggrid import AgGrid, GridOptionsBuilder  # type:ignore
-
+from utils.utils import truncate as trunc
 
 def plot_pie(df, title, labels_map=None):
     # Create pie chart using plotly express
@@ -61,15 +61,18 @@ def plot_stacked_vbar(
         value_name=coordinates[1],
     )
 
-    # Step 3: Map 'from' and 'to' to foreign equivalents
+    # Step 3: Truncate long job titles
+    df_melted[group_by] = df_melted[group_by].apply(lambda word: trunc(word))
+
+    # Step 4: Map 'from' and 'to' to foreign equivalents
     df_melted[var_name] = df_melted[var_name].map(value_translated_vars)
 
-    # Optional: Sort names for better visual order (by 'to' salary)
+    # Step 5: Sort names for better visual order (by 'to' salary)
     df_melted[group_by] = pd.Categorical(
         df_melted[group_by], categories=top_roles[group_by].tolist(), ordered=True
     )
 
-    # Step 4: Plot
+    # Step 6: Plot
 
     fig = px.bar(
         df_melted,
