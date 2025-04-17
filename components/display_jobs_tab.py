@@ -1,10 +1,10 @@
 import streamlit as st #type:ignore
 import pandas as pd #type:ignore
 from utils.plots import plot_pie, plot_hbar, plot_stacked_vbar
-import numpy as np #type:ignore
-from st_aggrid import AgGrid, GridOptionsBuilder #type:ignore
+import numpy as np  # type:ignore
 from utils.get_text import get_translated_text as t
-
+from utils.currency_exchange import exchange_currencies
+from utils.get_salaries_converted import get_salaries_converted
 
 def get_title_and_salaries_df(df,salary_df):
   merged = pd.merge(df, salary_df, left_on='id',right_on='job_id',how='left')
@@ -27,7 +27,7 @@ def get_roles_by_salaries_df(jobs_df, salary_df, role_counts_df):
     ]
 
 
-def display_vacs_by_title_section(df,salary_df):
+def display_vacs_by_title_section(df, salary_df, currency):
     """display vacancies by job title and top salaries
 
     Args:
@@ -49,7 +49,10 @@ def display_vacs_by_title_section(df,salary_df):
         else:
             merged_role_counts = get_roles_by_salaries_df(df, salary_df, role_counts_df)
             caption = t("chart_captions.top_titles_by_salary")
-            labels = t("chart_labels.top_titles_by_salary")
+            labels = {
+                "name": t("chart_labels.top_titles_by_salary.name"),
+                "salary": f'{t("chart_labels.top_titles_by_salary.salary")} ({currency.upper()})',
+            }
             legend_title = t("chart_legends.top_titles_by_salary.title")
             range_columns = ["from", "to"]
             range_columns_translated = t("chart_legends.top_titles_by_salary.labels")
@@ -108,9 +111,14 @@ def display_work_formats_section(df):
     with col2:
         build_work_pie(df, "working_hours")
 
+
 def display_jobs_tab():
-  jobs_df = st.session_state.jobs_df
-  salary_df = st.session_state.salary_df
-  display_vacs_by_title_section(jobs_df,salary_df)
-  display_work_reqs_section(jobs_df)
-  display_work_formats_section(jobs_df)
+    jobs_df = st.session_state.jobs_df
+    salary_df_raw = st.session_state.salary_df
+    currency = "usd"
+    if "currency" in st.session_state:
+        currency = st.session_state.currency
+    salary_df = get_salaries_converted(salary_df_raw, currency)
+    display_vacs_by_title_section(jobs_df, salary_df, currency)
+    display_work_reqs_section(jobs_df)
+    display_work_formats_section(jobs_df)

@@ -1,7 +1,6 @@
 {
   "en": {
-    "tab_title": "IT Job Stats",
-    "page_title": "IT Job Stats — Stats on IT job openings",
+    "page_title": "IT Job Trends — Stats on IT job openings",
     "sidebar_filter_labels": {
       "title": "Filters",
       "select_country": "Select a country",
@@ -143,7 +142,7 @@
   },
   "ru": {
     "tab_title": "Статистика IT вакансий",
-    "page_title": "Статистика IT вакансий — Данные о вакансиях в IT",
+    "page_title": "IT Job Trends — Данные о вакансиях в IT",
     "sidebar_filter_labels": {
       "title": "Фильтры",
       "select_country": "Выберите страну",

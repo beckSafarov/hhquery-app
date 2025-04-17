@@ -18,7 +18,7 @@ def fetch_exchange_rate():
 exchanges, last_updated = fetch_exchange_rate()
 
 def convert_around_usd(amount, currency, direction='to'):
-   """convert to usd from currency or to currency from usd
+    """convert to usd from currency or to currency from usd
 
     Args:
         amount (int): amount of money to convert
@@ -27,13 +27,13 @@ def convert_around_usd(amount, currency, direction='to'):
 
     Returns:
         int: converted value
-    """  
-   value_to_usd = exchanges[currency.upper()]['value']
-   total = amount / value_to_usd if direction == 'to' else amount * value_to_usd
-   return round(total,2)
+    """
+    value_to_usd = exchanges[currency.upper()]["value"]
+    total = amount / value_to_usd if direction == "to" else amount * value_to_usd
+    return round(total, 2)
 
 
-def exchange_currencies(amount, from_curr, to_curr):
-  from_curr_usd_value = convert_around_usd(amount, from_curr, 'to')
-  to_curr_usd_equivalent = convert_around_usd(from_curr_usd_value, to_curr, 'from')
-  return round(to_curr_usd_equivalent, 2)
+def exchange_currencies(amount: int, from_curr: str, to_curr: str, round_to: int = 2):
+    from_curr_usd_value = convert_around_usd(amount, from_curr, "to")
+    to_curr_usd_equivalent = convert_around_usd(from_curr_usd_value, to_curr, "from")
+    return round(to_curr_usd_equivalent, round_to)

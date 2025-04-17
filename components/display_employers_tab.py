@@ -1,7 +1,7 @@
 import streamlit as st #type:ignore
 from utils.plots import plot_vbar, plot_hbar
 from utils.get_text import get_translated_text as t
-
+from utils.get_salaries_converted import get_salaries_converted
 
 def display_top_employers_with_vacancies(employer_df):
     if len(employer_df) < 1:
@@ -16,7 +16,8 @@ def display_top_employers_with_vacancies(employer_df):
     )
     st.plotly_chart(emp_vacs)
 
-def display_top_employers_by_avg_salary(employer_df,salary_df):
+
+def display_top_employers_by_avg_salary(employer_df, salary_df, currency):
     if len(salary_df) < 1 or len(employer_df) < 1:
         return st.write(t("error_messages.top_emps_sals"))
     merged = salary_df.merge(
@@ -24,8 +25,8 @@ def display_top_employers_by_avg_salary(employer_df,salary_df):
     )
     caption = t("chart_captions.top_paying_employers")
     labels = {
-        "x": t("chart_labels.emps_top_avg_salary.x"),
-        "y": t("chart_labels.emps_top_avg_salary.y"),
+        "x": f'{t("chart_labels.emps_top_avg_salary.x")} ({currency.upper()})',
+        "y": f'{t("chart_labels.emps_top_avg_salary.y")} ',
     }
     emp_sals = plot_hbar(
         merged,
@@ -38,8 +39,13 @@ def display_top_employers_by_avg_salary(employer_df,salary_df):
     )
     st.plotly_chart(emp_sals)
 
+
 def display_employers_tab():
-  employer_df = st.session_state.employer_df
-  salary_df = st.session_state.salary_df
-  display_top_employers_with_vacancies(employer_df)
-  display_top_employers_by_avg_salary(employer_df,salary_df)
+    employer_df = st.session_state.employer_df
+    salary_df_raw = st.session_state.salary_df
+    currency = "usd"
+    if "currency" in st.session_state:
+        currency = st.session_state.currency
+    salary_df = get_salaries_converted(salary_df_raw, currency)
+    display_top_employers_with_vacancies(employer_df)
+    display_top_employers_by_avg_salary(employer_df, salary_df, currency)
