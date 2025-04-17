@@ -3,6 +3,9 @@ from utils.currency_exchange import exchange_currencies
 
 @st.cache_data(ttl=3600)
 def get_salaries_converted(df, currency:str='usd'):
+    if len(df) < 1:
+        return df
+
     df_copy = df.copy()
     # where stated currency not equal to current currency, convert
     mask = df_copy["currency"] != currency.upper()

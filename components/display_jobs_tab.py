@@ -1,9 +1,7 @@
 import streamlit as st #type:ignore
 import pandas as pd #type:ignore
 from utils.plots import plot_pie, plot_hbar, plot_stacked_vbar
-import numpy as np  # type:ignore
 from utils.get_text import get_translated_text as t
-from utils.currency_exchange import exchange_currencies
 from utils.get_salaries_converted import get_salaries_converted
 
 def get_title_and_salaries_df(df,salary_df):
